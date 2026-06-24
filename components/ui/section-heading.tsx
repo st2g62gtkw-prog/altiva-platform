@@ -5,9 +5,18 @@ type SectionHeadingProps = {
   title: string;
   description?: string;
   actions?: ReactNode;
+  as?: "h1" | "h2";
 };
 
-export function SectionHeading({ eyebrow, title, description, actions }: SectionHeadingProps) {
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  actions,
+  as = "h2"
+}: SectionHeadingProps) {
+  const HeadingTag = as;
+
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div className="max-w-3xl">
@@ -16,7 +25,9 @@ export function SectionHeading({ eyebrow, title, description, actions }: Section
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="text-3xl font-semibold text-zinc-950 md:text-4xl">{title}</h2>
+        <HeadingTag className="text-3xl font-semibold text-zinc-950 md:text-4xl">
+          {title}
+        </HeadingTag>
         {description ? (
           <p className="mt-4 text-base leading-7 text-zinc-600 md:text-lg">{description}</p>
         ) : null}

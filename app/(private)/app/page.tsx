@@ -1,10 +1,19 @@
 import { BarChart3, FileText, FolderKanban, ListTodo } from "lucide-react";
+import type { Metadata } from "next";
 
 import { AlertList } from "@/components/dashboard/alert-list";
 import { ProjectSummary } from "@/components/dashboard/project-summary";
 import { StatCard } from "@/components/ui/stat-card";
+import { createPageMetadata } from "@/config/metadata";
 import { budgets, documents, internalProjects, tasks } from "@/data/mock";
 import { formatCurrency } from "@/lib/utils/format";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Dashboard interno",
+  description: "Panel operativo V1 de Altiva para proyectos, documentos, presupuestos y tareas.",
+  path: "/app",
+  noIndex: true
+});
 
 export default function AppDashboardPage() {
   const totalBudget = budgets.reduce((sum, budget) => sum + budget.amount, 0);
@@ -19,8 +28,8 @@ export default function AppDashboardPage() {
         </p>
         <h1 className="mt-2 text-3xl font-semibold text-zinc-950">Operacion interna</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-600">
-          Vista inicial con datos simulados. El objetivo es validar estructura, navegacion y
-          responsabilidades antes de conectar autenticacion y base de datos.
+          Panel V1 para revisar proyectos, presupuestos, documentos, reportes y tareas con
+          datos de referencia no sensibles.
         </p>
       </div>
 
@@ -28,25 +37,25 @@ export default function AppDashboardPage() {
         <StatCard
           label="Proyectos"
           value={String(internalProjects.length)}
-          description="Proyectos internos de ejemplo."
+          description="Proyectos internos de referencia."
           icon={<FolderKanban className="h-5 w-5" aria-hidden />}
         />
         <StatCard
           label="Presupuesto controlado"
           value={formatCurrency(totalBudget)}
-          description="Monto consolidado mock."
+          description="Monto consolidado de presupuestos."
           icon={<BarChart3 className="h-5 w-5" aria-hidden />}
         />
         <StatCard
           label="Documentos pendientes"
           value={String(pendingDocs)}
-          description="Preparado para Drive."
+          description="Documentos que requieren revision."
           icon={<FileText className="h-5 w-5" aria-hidden />}
         />
         <StatCard
           label="Tareas abiertas"
           value={String(pendingTasks)}
-          description="Preparado para Notion."
+          description="Tareas de seguimiento tecnico."
           icon={<ListTodo className="h-5 w-5" aria-hidden />}
         />
       </div>

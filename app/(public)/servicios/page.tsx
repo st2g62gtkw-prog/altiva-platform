@@ -45,9 +45,9 @@ const services = [
   },
   {
     title: "Preparacion digital",
-    description: "Base para integrar informacion con sistemas reales sin improvisar.",
+    description: "Orden tecnico para que la informacion pueda crecer sin improvisacion.",
     icon: <ShieldCheck className="h-5 w-5" aria-hidden />,
-    items: ["Supabase", "Drive", "Notion e IA"]
+    items: ["Datos estructurados", "Documentos trazables", "Asistencia tecnica"]
   }
 ];
 
@@ -56,8 +56,9 @@ export default function ServicesPage() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Servicios"
-        title="Servicios potenciales para operacion tecnica"
-        description="La plataforma esta preparada para que estos servicios pasen desde contenido publico a gestion real con datos, permisos e integraciones."
+        title="Servicios para operacion tecnica"
+        description="Servicios orientados a ordenar informacion, reducir pendientes criticos y mejorar el seguimiento de proyectos de construccion."
+        as="h1"
       />
       <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (

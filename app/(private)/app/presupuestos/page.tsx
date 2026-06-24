@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
+
 import { DataTable } from "@/components/dashboard/data-table";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { createPageMetadata } from "@/config/metadata";
 import { budgets, internalProjects } from "@/data/mock";
 import { formatCurrency, formatDate } from "@/lib/utils/format";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Presupuestos",
+  description: "Control presupuestario interno por proyecto y estado de revision.",
+  path: "/app/presupuestos",
+  noIndex: true
+});
 
 export default function BudgetsPage() {
   return (
@@ -12,8 +22,8 @@ export default function BudgetsPage() {
         </p>
         <h1 className="mt-2 text-3xl font-semibold text-zinc-950">Control presupuestario</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-600">
-          Vista preparada para consolidar partidas, aprobaciones y comparativos cuando exista
-          base de datos real.
+          Consolidado de presupuestos para revisar montos, estados de aprobacion y fecha de
+          actualizacion por proyecto.
         </p>
       </div>
       <DataTable

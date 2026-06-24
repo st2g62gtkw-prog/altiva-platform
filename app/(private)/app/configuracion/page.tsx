@@ -1,17 +1,26 @@
 import { CheckCircle2, CircleDashed } from "lucide-react";
+import type { Metadata } from "next";
 
+import { createPageMetadata } from "@/config/metadata";
 import { databaseStatus } from "@/lib/db/schema";
 import { getSupabaseEnvironment } from "@/lib/db/supabase";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Configuracion",
+  description: "Estado de variables de entorno y modelo tecnico previsto para Altiva.",
+  path: "/app/configuracion",
+  noIndex: true
+});
 
 const integrations = [
   {
     name: "Supabase",
-    description: "Base de datos, autenticacion y persistencia futura.",
+    description: "Base de datos, autenticacion y persistencia de proyectos.",
     configured: Boolean(getSupabaseEnvironment().url && getSupabaseEnvironment().anonKey)
   },
   {
     name: "Google Drive",
-    description: "OAuth, documentos, metadata y asociacion a proyectos.",
+    description: "Gestion de documentos, metadata y asociacion a proyectos.",
     configured: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
   },
   {
@@ -21,7 +30,7 @@ const integrations = [
   },
   {
     name: "OpenAI",
-    description: "Asistente real, analisis documental y reportes automaticos.",
+    description: "Asistencia tecnica, analisis documental y reportes automaticos.",
     configured: Boolean(process.env.OPENAI_API_KEY)
   }
 ];
@@ -33,10 +42,10 @@ export default function SettingsPage() {
         <p className="text-sm font-semibold uppercase tracking-[0.08em] text-teal-700">
           Configuracion
         </p>
-        <h1 className="mt-2 text-3xl font-semibold text-zinc-950">Preparacion tecnica</h1>
+        <h1 className="mt-2 text-3xl font-semibold text-zinc-950">Configuracion tecnica</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-600">
-          Esta pantalla no muestra secretos. Solo indica si las variables necesarias existen
-          para habilitar integraciones futuras.
+          Esta pantalla no muestra secretos. Solo indica si existen variables de entorno
+          para activar integraciones cuando corresponda.
         </p>
       </div>
 
@@ -55,14 +64,14 @@ export default function SettingsPage() {
               )}
             </div>
             <p className="mt-4 rounded-md bg-zinc-50 p-3 text-sm font-medium text-zinc-700">
-              Estado: {integration.configured ? "Variable detectada" : "Pendiente de configurar"}
+              Estado: {integration.configured ? "Variable detectada" : "No configurado"}
             </p>
           </article>
         ))}
       </div>
 
       <section className="rounded-lg border border-zinc-200 bg-white p-5">
-        <h2 className="text-xl font-semibold text-zinc-950">Tablas futuras Supabase</h2>
+        <h2 className="text-xl font-semibold text-zinc-950">Modelo de datos previsto</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {databaseStatus.tables.map((table) => (
             <span key={table} className="rounded-full border border-zinc-200 px-3 py-1 text-sm text-zinc-700">

@@ -17,8 +17,9 @@ export default function ContactPage() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Contacto"
-        title="Conversemos sobre el proximo modulo"
-        description="Esta version deja la base lista para conectar formularios reales, CRM, automatizaciones o notificaciones cuando se defina el flujo operativo."
+        title="Conversemos sobre gestion tecnica de proyectos"
+        description="Usa este canal para consultas sobre coordinacion tecnica, control documental, presupuestos o reportes de avance."
+        as="h1"
       />
 
       <div className="mt-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
@@ -43,39 +44,39 @@ export default function ContactPage() {
               <Phone className="mt-1 h-5 w-5 text-teal-700" aria-hidden />
               <div>
                 <p className="font-semibold text-zinc-950">Telefono</p>
-                <p className="text-sm text-zinc-600">Pendiente de definir</p>
+                <p className="text-sm text-zinc-600">Disponible previa coordinacion por correo</p>
               </div>
             </div>
           </div>
         </div>
 
-        <form className="rounded-lg border border-zinc-200 bg-white p-6">
-          <h2 className="text-xl font-semibold text-zinc-950">Formulario preparado</h2>
+        <div className="rounded-lg border border-zinc-200 bg-white p-6">
+          <h2 className="text-xl font-semibold text-zinc-950">Informacion sugerida</h2>
           <p className="mt-2 text-sm leading-6 text-zinc-600">
-            Por ahora no envia datos. Esta listo para conectarse despues a una API route,
-            Supabase o un servicio externo.
+            Para una primera conversacion, conviene incluir ubicacion del proyecto, etapa,
+            alcance esperado, documentos disponibles y principales restricciones.
           </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <label className="grid gap-2 text-sm font-medium text-zinc-700">
-              Nombre
-              <input className="min-h-11 rounded-md border border-zinc-300 px-3 outline-none focus:border-teal-700" />
-            </label>
-            <label className="grid gap-2 text-sm font-medium text-zinc-700">
-              Correo
-              <input className="min-h-11 rounded-md border border-zinc-300 px-3 outline-none focus:border-teal-700" />
-            </label>
-            <label className="grid gap-2 text-sm font-medium text-zinc-700 sm:col-span-2">
-              Mensaje
-              <textarea className="min-h-32 rounded-md border border-zinc-300 px-3 py-2 outline-none focus:border-teal-700" />
-            </label>
+          <div className="mt-6 grid gap-3 text-sm text-zinc-700 sm:grid-cols-2">
+            {[
+              "Tipo de proyecto",
+              "Ubicacion y etapa",
+              "Documentos disponibles",
+              "Presupuesto o rango",
+              "Plazos relevantes",
+              "Riesgos conocidos"
+            ].map((item) => (
+              <div key={item} className="rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2">
+                {item}
+              </div>
+            ))}
           </div>
-          <button
-            type="button"
-            className="mt-5 rounded-md bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white"
+          <a
+            href={`mailto:${siteConfig.contactEmail}?subject=Consulta%20Altiva`}
+            className="mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-teal-800"
           >
-            Envio pendiente de conectar
-          </button>
-        </form>
+            Enviar correo
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -8,7 +8,7 @@ import { publicProjects } from "@/data/mock";
 export const metadata: Metadata = createPageMetadata({
   title: "Proyectos",
   description:
-    "Portafolio publico de proyectos demostrativos de construccion civil, gestion documental y reportabilidad.",
+    "Portafolio publico de proyectos referenciales de construccion civil, gestion documental y reportabilidad.",
   path: "/proyectos"
 });
 
@@ -18,7 +18,8 @@ export default function ProjectsPage() {
       <SectionHeading
         eyebrow="Proyectos"
         title="Portafolio profesional"
-        description="Estos casos son ejemplos realistas sin datos sensibles. La estructura permite migrarlos despues a una tabla public_projects en Supabase."
+        description="Casos referenciales sin datos sensibles, presentados para mostrar criterios de planificacion, control y trazabilidad documental."
+        as="h1"
       />
       <div className="mt-10 grid gap-5 md:grid-cols-3">
         {publicProjects.map((project) => (

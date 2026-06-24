@@ -19,7 +19,7 @@ import { publicProjects } from "@/data/mock";
 export const metadata: Metadata = createPageMetadata({
   title: "Gestion tecnica para proyectos de construccion",
   description:
-    "Altiva integra portafolio profesional y base de sistema interno para proyectos, documentos, presupuestos, reportes e IA.",
+    "Altiva integra portafolio profesional y gestion interna para proyectos, documentos, presupuestos, reportes y asistencia tecnica.",
   path: "/"
 });
 
@@ -34,14 +34,14 @@ const services = [
   {
     title: "Presupuestos y control",
     description:
-      "Ordenamiento de partidas, trazabilidad de montos y preparacion para comparativos futuros.",
+      "Ordenamiento de partidas, trazabilidad de montos y comparativos para decisiones tecnicas.",
     icon: <BarChart3 className="h-5 w-5" aria-hidden />,
     items: ["Cubicaciones", "Revision de precios", "Control de desviaciones"]
   },
   {
     title: "Documentos y reportes",
     description:
-      "Base preparada para centralizar antecedentes, reportes de avance y respaldos tecnicos.",
+      "Centralizacion de antecedentes, reportes de avance y respaldos tecnicos.",
     icon: <FileSearch className="h-5 w-5" aria-hidden />,
     items: ["Informes", "Planos", "Permisos y minutas"]
   }
@@ -60,13 +60,13 @@ export default function HomePage() {
               Gestion tecnica seria para proyectos, documentos, presupuestos y reportes.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-600">
-              Altiva nace como una base profesional para mostrar experiencia publica y
-              operar una futura plataforma interna conectada a Supabase, Drive, Notion e IA.
+              Altiva organiza experiencia profesional, seguimiento interno y criterios de
+              control para proyectos de construccion civil.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/proyectos">Ver proyectos</ButtonLink>
               <ButtonLink href="/app" variant="secondary">
-                Entrar a demo interna
+                Entrar al panel interno
               </ButtonLink>
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <p className="font-semibold text-zinc-950">Panel tecnico</p>
-                  <p className="text-sm text-zinc-500">Vista inicial preparada para produccion</p>
+                  <p className="text-sm text-zinc-500">Vista de control para operacion V1</p>
                 </div>
               </div>
               <div className="mt-5 grid gap-3">
@@ -87,7 +87,7 @@ export default function HomePage() {
                   ["Proyectos", "3 activos"],
                   ["Documentos", "4 registros"],
                   ["Reportes", "2 en preparacion"],
-                  ["IA", "Simulada, lista para API real"]
+                  ["Asistente", "Apoyo tecnico guiado"]
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -106,21 +106,21 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-4 md:grid-cols-3">
           <StatCard
-            label="Base tecnica"
+            label="Stack tecnico"
             value="Next.js"
             description="App Router, TypeScript, Tailwind y estructura lista para Vercel."
             icon={<ShieldCheck className="h-5 w-5" aria-hidden />}
           />
           <StatCard
-            label="Integraciones futuras"
+            label="Capas preparadas"
             value="4 capas"
-            description="Supabase, Google Drive, Notion e IA separadas por carpeta y contrato."
+            description="Datos, documentos, tareas y asistencia tecnica separados por modulo."
             icon={<Bot className="h-5 w-5" aria-hidden />}
           />
           <StatCard
-            label="Operacion inicial"
-            value="Mocks"
-            description="Datos realistas centralizados para avanzar sin exponer informacion sensible."
+            label="Operacion V1"
+            value="Referencial"
+            description="Datos de referencia centralizados para revisar flujos sin informacion sensible."
             icon={<ClipboardCheck className="h-5 w-5" aria-hidden />}
           />
         </div>
@@ -130,8 +130,8 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Servicios"
-            title="Una base para operar con criterio tecnico"
-            description="El foco de esta primera version es ordenar la arquitectura y dejar preparada la evolucion hacia datos reales e integraciones."
+            title="Gestion con criterio tecnico"
+            description="Altiva ordena informacion critica para planificar, controlar avances y comunicar decisiones con mayor claridad."
             actions={<ButtonLink href="/servicios" variant="secondary">Ver servicios</ButtonLink>}
           />
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -145,8 +145,8 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Portafolio"
-          title="Proyectos publicos de ejemplo"
-          description="Casos demostrativos sin informacion sensible, pensados para reemplazarse por antecedentes reales cuando corresponda."
+          title="Proyectos seleccionados"
+          description="Casos referenciales de gestion tecnica, control documental y coordinacion de obra sin informacion sensible."
           actions={<ButtonLink href="/proyectos" variant="secondary">Ver portafolio</ButtonLink>}
         />
         <div className="mt-8 grid gap-5 md:grid-cols-3">

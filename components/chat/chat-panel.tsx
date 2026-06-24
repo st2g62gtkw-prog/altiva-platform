@@ -54,13 +54,13 @@ export function ChatPanel() {
   }
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[1fr_320px]">
-      <section className="rounded-lg border border-zinc-200 bg-white">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <section className="min-w-0 rounded-lg border border-zinc-200 bg-white">
         <div className="border-b border-zinc-200 p-5">
           <h1 className="text-2xl font-semibold text-zinc-950">Asistente IA</h1>
           <p className="mt-2 text-sm leading-6 text-zinc-600">
-            Chat simulado orientado a construccion civil. La interfaz ya separa la UI de la
-            logica para conectar una API real despues.
+            Asistente tecnico V1 con respuestas guiadas para ordenar documentos, riesgos,
+            presupuestos, minutas y reportes de avance.
           </p>
         </div>
 
@@ -75,7 +75,7 @@ export function ChatPanel() {
             >
               <div
                 className={cn(
-                  "max-w-[85%] rounded-lg px-4 py-3 text-sm leading-6",
+                  "max-w-[85%] overflow-hidden rounded-lg px-4 py-3 text-sm leading-6",
                   message.role === "user"
                     ? "bg-teal-700 text-white"
                     : "border border-zinc-200 bg-zinc-50 text-zinc-800"
@@ -90,16 +90,19 @@ export function ChatPanel() {
           ) : null}
         </div>
 
-        <form onSubmit={handleSubmit} className="flex gap-3 border-t border-zinc-200 p-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3 border-t border-zinc-200 p-4 sm:flex-row"
+        >
           <input
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="Escribe una consulta tecnica..."
-            className="min-h-11 flex-1 rounded-md border border-zinc-300 px-4 text-sm outline-none focus:border-teal-700"
+            className="min-h-11 min-w-0 flex-1 rounded-md border border-zinc-300 px-4 text-sm outline-none focus:border-teal-700"
           />
           <button
             type="submit"
-            className="inline-flex min-h-11 items-center gap-2 rounded-md bg-teal-700 px-4 text-sm font-semibold text-white hover:bg-teal-800"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-teal-700 px-4 text-sm font-semibold text-white hover:bg-teal-800 sm:w-auto"
           >
             <SendHorizontal className="h-4 w-4" aria-hidden />
             Enviar
@@ -107,7 +110,7 @@ export function ChatPanel() {
         </form>
       </section>
 
-      <aside className="rounded-lg border border-zinc-200 bg-white p-5">
+      <aside className="min-w-0 rounded-lg border border-zinc-200 bg-white p-5">
         <h2 className="text-lg font-semibold text-zinc-950">Consultas sugeridas</h2>
         <div className="mt-4 space-y-2">
           {suggestedPrompts.map((prompt) => (

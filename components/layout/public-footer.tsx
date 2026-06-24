@@ -10,8 +10,8 @@ export function PublicFooter() {
         <div>
           <p className="text-lg font-semibold text-zinc-950">{siteConfig.name}</p>
           <p className="mt-3 max-w-xl text-sm leading-6 text-zinc-600">
-            Plataforma base para gestionar portafolio profesional, proyectos internos,
-            documentos, presupuestos, reportes e integraciones futuras.
+            Plataforma profesional para portafolio, gestion de proyectos, documentos,
+            presupuestos, reportes y planificacion tecnica.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-3 text-sm">
@@ -26,7 +26,8 @@ export function PublicFooter() {
         </div>
       </div>
       <div className="border-t border-zinc-200 px-4 py-4 text-center text-xs text-zinc-500">
-        © {new Date().getFullYear()} {siteConfig.name}. Base preparada para produccion.
+        Copyright {new Date().getFullYear()} {siteConfig.name}. Plataforma preparada para
+        produccion.
       </div>
     </footer>
   );

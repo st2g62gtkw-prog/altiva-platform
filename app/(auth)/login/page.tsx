@@ -4,8 +4,8 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { createPageMetadata } from "@/config/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Login futuro",
-  description: "Pantalla visual preparada para conectar Supabase Auth en una fase posterior.",
+  title: "Acceso",
+  description: "Pantalla de acceso reservada para el panel interno de Altiva.",
   path: "/login",
   noIndex: true
 });
@@ -20,7 +20,7 @@ export default function LoginPage() {
           </span>
           <div>
             <h1 className="text-xl font-semibold text-zinc-950">Acceso Altiva</h1>
-            <p className="text-sm text-zinc-500">Preparado para Supabase Auth</p>
+            <p className="text-sm text-zinc-500">Panel interno V1</p>
           </div>
         </div>
         <div className="space-y-4">
@@ -38,17 +38,17 @@ export default function LoginPage() {
             <input
               type="password"
               disabled
-              placeholder="••••••••"
+              placeholder="********"
               className="min-h-11 rounded-md border border-zinc-300 px-3 disabled:bg-zinc-100"
             />
           </label>
         </div>
         <p className="mt-5 rounded-md bg-amber-50 p-3 text-sm leading-6 text-amber-900">
-          Esta pantalla es visual. La proteccion real se activa despues con Supabase Auth y
-          el middleware preparado.
+          El panel V1 se puede revisar sin credenciales. La capa de autenticacion quedo
+          reservada para una etapa posterior.
         </p>
         <div className="mt-5 flex gap-3">
-          <ButtonLink href="/app">Entrar a demo</ButtonLink>
+          <ButtonLink href="/app">Entrar al panel</ButtonLink>
           <ButtonLink href="/" variant="secondary">
             Volver
           </ButtonLink>

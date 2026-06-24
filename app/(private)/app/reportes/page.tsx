@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
+
 import { reports, internalProjects } from "@/data/mock";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { createPageMetadata } from "@/config/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Reportes",
+  description: "Reportabilidad interna de avance, riesgos y acciones por proyecto.",
+  path: "/app/reportes",
+  noIndex: true
+});
 
 export default function ReportsPage() {
   return (
@@ -10,8 +20,8 @@ export default function ReportsPage() {
         </p>
         <h1 className="mt-2 text-3xl font-semibold text-zinc-950">Reportabilidad</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-600">
-          Reportes simulados listos para evolucionar hacia generacion automatica con IA y
-          lectura de documentos.
+          Reportes de avance y riesgos para comunicar estado, bloqueos y proximas acciones
+          por proyecto.
         </p>
       </div>
       <div className="grid gap-5 lg:grid-cols-2">

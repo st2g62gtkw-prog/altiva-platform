@@ -14,7 +14,7 @@ export const metadata: Metadata = createPageMetadata({
 const strengths = [
   "Mirada tecnica para ordenar alcance, costos, riesgos y antecedentes.",
   "Experiencia en coordinacion de partidas, documentos y reportes.",
-  "Interes en construir una plataforma escalable para operacion profesional.",
+  "Uso de herramientas digitales para mejorar trazabilidad y seguimiento.",
   "Criterio practico para avanzar por fases sin comprometer seguridad ni calidad."
 ];
 
@@ -24,7 +24,8 @@ export default function AboutPage() {
       <SectionHeading
         eyebrow="Sobre mi"
         title="Constructor Civil con foco en gestion tecnica y transformacion digital"
-        description="Altiva es una base para combinar experiencia profesional en construccion con herramientas digitales que ordenen proyectos, documentos, presupuestos y decisiones."
+        description="Altiva combina experiencia profesional en construccion con herramientas digitales para ordenar proyectos, documentos, presupuestos y decisiones."
+        as="h1"
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
@@ -37,8 +38,8 @@ export default function AboutPage() {
               Gestion, trazabilidad y criterio constructivo.
             </h2>
             <p className="mt-4 text-sm leading-6 text-zinc-600">
-              Esta version inicial no busca simular una empresa completa. Busca dejar una
-              plataforma real, ordenada y preparada para crecer por modulos.
+              El enfoque es construir una plataforma sobria, ordenada y util para el trabajo
+              tecnico diario.
             </p>
           </div>
         </div>
@@ -47,9 +48,8 @@ export default function AboutPage() {
           <h2 className="text-2xl font-semibold text-zinc-950">Enfoque de trabajo</h2>
           <p className="mt-4 leading-7 text-zinc-600">
             La construccion requiere informacion clara, responsabilidades visibles y control
-            sobre cambios. Por eso la arquitectura de Altiva separa datos, UI, integraciones
-            y rutas, permitiendo sumar autenticacion, base de datos y automatizaciones sin
-            reescribir la base.
+            sobre cambios. Por eso Altiva separa informacion publica, operacion interna y
+            capas tecnicas, permitiendo crecer por etapas sin perder trazabilidad.
           </p>
           <div className="mt-6 space-y-4">
             {strengths.map((item) => (

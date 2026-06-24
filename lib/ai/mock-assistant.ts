@@ -24,14 +24,14 @@ function buildMockAnswer(prompt: string) {
   }
 
   if (normalizedPrompt.includes("documento")) {
-    return "Para documentos pendientes, conviene separar antecedentes tecnicos, planos, permisos, contratos y respaldos fotograficos. En la version conectada puedo leer Drive y priorizar faltantes por proyecto.";
+    return "Para documentos pendientes, conviene separar antecedentes tecnicos, planos, permisos, contratos y respaldos fotograficos. Sugiero priorizar los documentos criticos por proyecto, responsable y fecha comprometida.";
   }
 
   if (normalizedPrompt.includes("reporte")) {
-    return "Reporte de avance sugerido: resumen ejecutivo, avance fisico, avance financiero, hitos, bloqueos, riesgos, fotografias y proximas acciones. Esta respuesta es simulada y lista para reemplazarse por IA real.";
+    return "Reporte de avance sugerido: resumen ejecutivo, avance fisico, avance financiero, hitos, bloqueos, riesgos, fotografias y proximas acciones.";
   }
 
-  return "Como asistente tecnico simulado, puedo ayudarte a ordenar informacion de proyectos, documentos, presupuestos, reportes y tareas. Cuando se conecte la API de IA, esta capa mantendra la misma interfaz.";
+  return "Como asistente tecnico V1, puedo ayudarte a ordenar informacion de proyectos, documentos, presupuestos, reportes y tareas con criterios de gestion de construccion.";
 }
 
 export async function generateAssistantReply(

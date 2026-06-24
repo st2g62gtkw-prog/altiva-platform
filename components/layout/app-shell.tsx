@@ -67,7 +67,7 @@ export function AppShell({ children }: AppShellProps) {
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-zinc-950">{siteConfig.name}</p>
-              <p className="text-xs text-zinc-500">Modo demo sin autenticacion real</p>
+              <p className="text-xs text-zinc-500">Panel interno V1</p>
             </div>
             <div className="flex gap-2 overflow-x-auto lg:hidden">
               {appNavigation.slice(0, 4).map((item) => (
@@ -84,7 +84,7 @@ export function AppShell({ children }: AppShellProps) {
               href="/login"
               className="hidden rounded-md border border-zinc-300 px-3 py-2 text-sm font-semibold text-zinc-700 hover:border-teal-700 sm:inline-flex"
             >
-              Login futuro
+              Acceso
             </Link>
           </div>
         </header>

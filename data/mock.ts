@@ -240,7 +240,7 @@ export const assistantMessages: AssistantMessage[] = [
     id: "msg-001",
     role: "assistant",
     content:
-      "Soy el asistente tecnico simulado de Altiva. Puedo ayudarte con documentos, riesgos, presupuestos, minutas y reportes de avance.",
+      "Soy el asistente tecnico V1 de Altiva. Puedo ayudarte a ordenar documentos, riesgos, presupuestos, minutas y reportes de avance.",
     createdAt: "2026-06-24T09:00:00.000Z"
   }
 ];
