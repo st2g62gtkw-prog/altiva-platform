@@ -21,6 +21,30 @@ Altiva separa rutas, componentes, datos, integraciones y tipos para evitar que l
 - `components/chat`: interfaz del asistente.
 - `components/ui`: piezas reutilizables pequenas.
 
+## Altiva Assistant V1
+
+El asistente esta separado en capas para que la UI no conozca proveedores externos ni claves:
+
+- `components/chat/chat-panel.tsx`: UI del chat, modos visuales y envio de mensajes.
+- `app/api/assistant/route.ts`: entrada backend interna para procesar consultas.
+- `lib/ai/types.ts`: contratos `AssistantMessage`, `AssistantMode`, `AssistantContext`, `AssistantProvider` y respuestas.
+- `lib/ai/assistant-config.ts`: configuracion de proveedor, modelo y modos disponibles.
+- `lib/ai/assistant-prompts.ts`: prompt base del sistema, prompts por modo y ejemplos de uso.
+- `lib/ai/mock-assistant.ts`: proveedor mock actual, sin llamadas externas.
+- `lib/ai/provider.ts`: selector de proveedor. Este es el archivo principal para conectar OpenAI mas adelante.
+
+El flujo actual es:
+
+1. El usuario escribe en `/app/asistente`.
+2. La UI llama a `POST /api/assistant`.
+3. La ruta normaliza el modo y contexto.
+4. `getAssistantResponse` usa el proveedor configurado.
+5. Hoy responde `mockAssistantProvider`.
+
+No se usan claves reales ni APIs externas. `AI_PROVIDER=mock` mantiene el comportamiento local y seguro.
+
+Antes de conectar datos reales hay que resolver permisos, auditoria, sanitizacion de documentos y control de informacion sensible por usuario/proyecto.
+
 ## Datos
 
 Los mocks viven en `data/mock.ts`. Las pantallas no deberian definir datos propios salvo constantes de UI muy locales.

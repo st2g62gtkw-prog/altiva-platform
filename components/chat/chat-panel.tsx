@@ -4,48 +4,84 @@ import { SendHorizontal } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 import { assistantMessages } from "@/data/mock";
-import { generateAssistantReply } from "@/lib/ai/mock-assistant";
-import type { AssistantMessage } from "@/lib/ai/types";
+import { assistantModes } from "@/lib/ai/assistant-config";
+import { assistantSuggestedPrompts } from "@/lib/ai/assistant-prompts";
+import type {
+  AssistantApiResponse,
+  AssistantMessage,
+  AssistantMode,
+  AssistantResponse
+} from "@/lib/ai/types";
 import { cn } from "@/lib/utils/cn";
 
-const suggestedPrompts = [
-  "Resume los documentos pendientes.",
-  "Revisa riesgos del proyecto.",
-  "Ayudame a preparar una minuta.",
-  "Analiza un presupuesto.",
-  "Busca inconsistencias en antecedentes tecnicos.",
-  "Prepara un reporte de avance."
-];
-
-function createUserMessage(content: string): AssistantMessage {
+function createMessage(role: AssistantMessage["role"], content: string): AssistantMessage {
   return {
-    id: typeof crypto !== "undefined" ? crypto.randomUUID() : `user-${Date.now()}`,
-    role: "user",
+    id: typeof crypto !== "undefined" ? crypto.randomUUID() : `${role}-${Date.now()}`,
+    role,
     content,
     createdAt: new Date().toISOString()
   };
 }
 
+function isAssistantResponse(response: AssistantApiResponse): response is AssistantResponse {
+  return "message" in response;
+}
+
 export function ChatPanel() {
   const [messages, setMessages] = useState<AssistantMessage[]>(assistantMessages);
   const [input, setInput] = useState("");
+  const [mode, setMode] = useState<AssistantMode>("general");
   const [isThinking, setIsThinking] = useState(false);
 
-  async function sendPrompt(prompt: string) {
+  async function sendPrompt(prompt: string, selectedMode = mode) {
     const trimmedPrompt = prompt.trim();
 
     if (!trimmedPrompt) {
       return;
     }
 
-    const userMessage = createUserMessage(trimmedPrompt);
-    setMessages((current) => [...current, userMessage]);
+    const userMessage = createMessage("user", trimmedPrompt);
+    const nextMessages = [...messages, userMessage];
+
+    setMessages(nextMessages);
     setInput("");
+    setMode(selectedMode);
     setIsThinking(true);
 
-    const response = await generateAssistantReply({ prompt: trimmedPrompt });
-    setMessages((current) => [...current, response.message]);
-    setIsThinking(false);
+    try {
+      const apiResponse = await fetch("/api/assistant", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          prompt: trimmedPrompt,
+          messages: nextMessages,
+          mode: selectedMode,
+          context: {
+            route: "/app/asistente"
+          }
+        })
+      });
+
+      const response = (await apiResponse.json()) as AssistantApiResponse;
+
+      if (!apiResponse.ok || !isAssistantResponse(response)) {
+        throw new Error("Assistant request failed");
+      }
+
+      setMessages((current) => [...current, response.message]);
+    } catch {
+      setMessages((current) => [
+        ...current,
+        createMessage(
+          "assistant",
+          "No fue posible procesar la consulta en este momento. Revisa la informacion ingresada e intenta nuevamente."
+        )
+      ]);
+    } finally {
+      setIsThinking(false);
+    }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -54,14 +90,43 @@ export function ChatPanel() {
   }
 
   return (
-    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
       <section className="min-w-0 rounded-lg border border-zinc-200 bg-white">
         <div className="border-b border-zinc-200 p-5">
-          <h1 className="text-2xl font-semibold text-zinc-950">Asistente IA</h1>
-          <p className="mt-2 text-sm leading-6 text-zinc-600">
-            Asistente tecnico V1 con respuestas guiadas para ordenar documentos, riesgos,
-            presupuestos, minutas y reportes de avance.
-          </p>
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold text-zinc-950">Asistente IA</h1>
+              <p className="mt-2 text-sm leading-6 text-zinc-600">
+                Altiva Assistant V1 usa un proveedor mock interno. El flujo ya pasa por una
+                API propia para conectar IA real desde backend cuando corresponda.
+              </p>
+            </div>
+            <span className="inline-flex w-fit rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">
+              Modo demo tecnico
+            </span>
+          </div>
+        </div>
+
+        <div className="border-b border-zinc-200 p-5">
+          <p className="mb-3 text-sm font-semibold text-zinc-950">Enfoque del asistente</p>
+          <div className="flex flex-wrap gap-2">
+            {assistantModes.map((assistantMode) => (
+              <button
+                key={assistantMode.id}
+                type="button"
+                onClick={() => setMode(assistantMode.id)}
+                className={cn(
+                  "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
+                  mode === assistantMode.id
+                    ? "border-teal-700 bg-teal-700 text-white"
+                    : "border-zinc-200 bg-white text-zinc-700 hover:border-teal-700"
+                )}
+                title={assistantMode.description}
+              >
+                {assistantMode.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="h-[520px] space-y-4 overflow-y-auto p-5">
@@ -75,7 +140,7 @@ export function ChatPanel() {
             >
               <div
                 className={cn(
-                  "max-w-[85%] overflow-hidden rounded-lg px-4 py-3 text-sm leading-6",
+                  "max-w-[85%] overflow-hidden whitespace-pre-line rounded-lg px-4 py-3 text-sm leading-6",
                   message.role === "user"
                     ? "bg-teal-700 text-white"
                     : "border border-zinc-200 bg-zinc-50 text-zinc-800"
@@ -110,20 +175,31 @@ export function ChatPanel() {
         </form>
       </section>
 
-      <aside className="min-w-0 rounded-lg border border-zinc-200 bg-white p-5">
-        <h2 className="text-lg font-semibold text-zinc-950">Consultas sugeridas</h2>
-        <div className="mt-4 space-y-2">
-          {suggestedPrompts.map((prompt) => (
-            <button
-              key={prompt}
-              type="button"
-              onClick={() => void sendPrompt(prompt)}
-              className="w-full rounded-md border border-zinc-200 px-3 py-2 text-left text-sm leading-6 text-zinc-700 hover:border-teal-700 hover:bg-teal-50"
-            >
-              {prompt}
-            </button>
-          ))}
-        </div>
+      <aside className="min-w-0 space-y-5">
+        <section className="rounded-lg border border-zinc-200 bg-white p-5">
+          <h2 className="text-lg font-semibold text-zinc-950">Consultas sugeridas</h2>
+          <div className="mt-4 space-y-2">
+            {assistantSuggestedPrompts.map((item) => (
+              <button
+                key={item.prompt}
+                type="button"
+                onClick={() => void sendPrompt(item.prompt, item.mode)}
+                className="w-full rounded-md border border-zinc-200 px-3 py-2 text-left text-sm leading-6 text-zinc-700 hover:border-teal-700 hover:bg-teal-50"
+              >
+                <span className="block font-semibold text-zinc-950">{item.label}</span>
+                <span>{item.prompt}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-lg border border-zinc-200 bg-white p-5">
+          <h2 className="text-lg font-semibold text-zinc-950">Preparado para IA real</h2>
+          <p className="mt-3 text-sm leading-6 text-zinc-600">
+            La UI no usa claves ni proveedores externos. El punto de conexion futuro esta en
+            `lib/ai/provider.ts` y la entrada backend en `/api/assistant`.
+          </p>
+        </section>
       </aside>
     </div>
   );

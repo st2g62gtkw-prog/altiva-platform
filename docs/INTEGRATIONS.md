@@ -85,18 +85,47 @@ Pasos futuros:
 
 Carpeta: `lib/ai`
 
-Variable:
+Variables:
 
 ```txt
+AI_PROVIDER=mock
+AI_MODEL=altiva-mock-v1
 OPENAI_API_KEY=
 ```
 
-La UI usa `components/chat/chat-panel.tsx`. La logica simulada vive en `lib/ai/mock-assistant.ts`.
+Estado actual:
+
+- La UI vive en `components/chat/chat-panel.tsx`.
+- La UI llama a `POST /api/assistant`.
+- La ruta backend usa `lib/ai/provider.ts`.
+- El proveedor actual es `lib/ai/mock-assistant.ts`.
+- El prompt base vive en `lib/ai/assistant-prompts.ts`.
+- Los modos disponibles se definen en `lib/ai/assistant-config.ts`.
+- No se llama a OpenAI ni a ningun proveedor externo.
+
+Modos preparados:
+
+- General.
+- Oficina tecnica.
+- Presupuestos.
+- Documentos.
+- Reportes.
+- Estudio PMP/ITO.
+- Gestion de proyectos.
 
 Pasos futuros:
 
-1. Crear una API route server-side.
-2. Llamar al proveedor de IA desde servidor.
-3. Guardar mensajes en `ai_messages`.
-4. Conectar contexto desde proyectos, documentos y presupuestos.
-5. Agregar controles de permisos antes de entregar informacion sensible.
+1. Mantener `components/chat/chat-panel.tsx` sin claves ni SDKs externos.
+2. Crear un proveedor OpenAI server-side y conectarlo en `lib/ai/provider.ts`.
+3. Usar `altivaSystemPrompt` como prompt base y agregar contexto autorizado.
+4. Guardar mensajes en `ai_messages` cuando exista Supabase.
+5. Conectar contexto desde proyectos, documentos y presupuestos solo con permisos.
+6. Agregar controles de permisos antes de entregar informacion sensible.
+
+Riesgos antes de conectar IA real:
+
+- Exponer informacion privada de proyectos o clientes.
+- Enviar documentos sin permisos claros.
+- Mezclar datos de distintos proyectos o usuarios.
+- Aceptar respuestas inventadas sin trazabilidad.
+- Usar claves en el cliente en lugar del backend.

@@ -37,3 +37,4 @@ Thumbs.db
 coverage
 *.tsbuildinfo
 .next-dev-*.log
+.next-start-*.log

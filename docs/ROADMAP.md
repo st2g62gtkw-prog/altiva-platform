@@ -5,7 +5,7 @@
 - Web publica.
 - App privada sin login real.
 - Datos mock centralizados.
-- Chat simulado.
+- Altiva Assistant V1 con API interna, prompt base, modos y proveedor mock.
 - Deploy en Vercel.
 - Documentacion de arquitectura e integraciones.
 
@@ -29,12 +29,14 @@
 
 ## Fase 4: IA real
 
-- Conectar API de IA server-side.
+- Reemplazar proveedor mock por OpenAI u otro proveedor desde `lib/ai/provider.ts`.
+- Conectar API de IA solo server-side.
 - Guardar conversaciones.
 - Analizar presupuestos.
 - Leer documentos autorizados.
 - Preparar reportes automaticos.
 - Agregar busqueda inteligente.
+- Agregar evaluaciones de seguridad antes de usar documentos reales o datos de clientes.
 
 ## Fase 5: Plataforma profesional
 
