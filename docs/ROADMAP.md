@@ -3,8 +3,12 @@
 ## Fase 1: Base desplegable
 
 - Web publica.
-- App privada sin login real.
-- Datos mock centralizados.
+- App privada sin login real, organizada por espacios.
+- Public Site para portafolio, proyectos publicos y contacto.
+- Personal Workspace para notas, tareas, estudio, tests, habitos e IA personal.
+- Technical Workspace para proyectos de construccion, documentos, presupuestos, reportes, riesgos y avance.
+- Future External Workspace documentado, sin implementacion todavia.
+- Datos mock centralizados para cada espacio.
 - Altiva Assistant V1 con API interna, prompt base, modos, proveedor mock y OpenAI opcional server-side.
 - Deploy en Vercel.
 - Documentacion de arquitectura e integraciones.
@@ -15,8 +19,10 @@
 - Crear tablas iniciales.
 - Implementar Supabase Auth.
 - Proteger `/app`.
+- Separar datos personales, tecnicos y externos por usuario, rol y permiso.
 - Persistir proyectos.
 - Persistir documentos, presupuestos y reportes.
+- Persistir notas, tareas, estudio, tests y habitos personales.
 
 ## Fase 3: Drive y Notion
 
@@ -41,7 +47,7 @@
 ## Fase 5: Plataforma profesional
 
 - Multiples usuarios.
-- Clientes y permisos.
+- External Workspace para clientes, empresas, permisos y colaboracion.
 - Roles por proyecto.
 - Auditoria de cambios.
 - Paneles por cliente.

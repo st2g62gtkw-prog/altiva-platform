@@ -244,3 +244,112 @@ export const assistantMessages: AssistantMessage[] = [
     createdAt: "2026-06-24T09:00:00.000Z"
   }
 ];
+
+export const personalNotes = [
+  {
+    id: "note-001",
+    title: "Ideas para Altiva",
+    summary: "Separar espacios personal, tecnico y externo antes de sumar datos reales.",
+    updatedAt: "2026-06-24"
+  },
+  {
+    id: "note-002",
+    title: "Rutina de estudio PMP",
+    summary: "Bloques de 30 minutos con preguntas situacionales y revision de errores.",
+    updatedAt: "2026-06-23"
+  },
+  {
+    id: "note-003",
+    title: "Checklist oficina tecnica",
+    summary: "Ordenar RFIs, minutas, pendientes y documentos criticos por proyecto.",
+    updatedAt: "2026-06-21"
+  }
+];
+
+export const personalTasks = [
+  {
+    id: "personal-task-001",
+    title: "Preparar roadmap de IA personal",
+    area: "Altiva",
+    status: "pending",
+    dueDate: "2026-06-30"
+  },
+  {
+    id: "personal-task-002",
+    title: "Repasar gestion de alcance PMP",
+    area: "Estudio",
+    status: "in_progress",
+    dueDate: "2026-07-02"
+  },
+  {
+    id: "personal-task-003",
+    title: "Definir plantilla diaria de notas",
+    area: "Productividad",
+    status: "pending",
+    dueDate: "2026-07-05"
+  }
+];
+
+export const studyTopics = [
+  {
+    id: "study-001",
+    title: "PMP: gestion de riesgos",
+    progress: 45,
+    nextAction: "Practicar 10 preguntas situacionales."
+  },
+  {
+    id: "study-002",
+    title: "ITO: control documental",
+    progress: 30,
+    nextAction: "Crear checklist de recepcion de antecedentes."
+  },
+  {
+    id: "study-003",
+    title: "Oficina tecnica",
+    progress: 60,
+    nextAction: "Estandarizar minuta y matriz de pendientes."
+  }
+];
+
+export const personalTests = [
+  {
+    id: "test-001",
+    title: "Test PMP situacional",
+    questions: 15,
+    status: "draft"
+  },
+  {
+    id: "test-002",
+    title: "Test ITO control de obra",
+    questions: 12,
+    status: "ready"
+  }
+];
+
+export const habits = [
+  {
+    id: "habit-001",
+    title: "Estudio diario",
+    cadence: "5 dias por semana",
+    streak: "3 dias"
+  },
+  {
+    id: "habit-002",
+    title: "Revision de tareas",
+    cadence: "Cada manana",
+    streak: "6 dias"
+  },
+  {
+    id: "habit-003",
+    title: "Cierre semanal",
+    cadence: "Viernes",
+    streak: "2 semanas"
+  }
+];
+
+export const personalIdeas = [
+  "Crear un tablero de decisiones.",
+  "Agregar resumen semanal con IA.",
+  "Separar notas personales de antecedentes tecnicos.",
+  "Disenar tests tipo PMP/ITO por categoria."
+];

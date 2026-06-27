@@ -13,12 +13,24 @@ Altiva separa rutas, componentes, datos, integraciones y tipos para evitar que l
 - `app/robots.ts`: robots con bloqueo de rutas privadas.
 - `proxy.ts`: punto de proteccion futura. En Next 16 reemplaza la antigua convencion `middleware.ts`.
 
+## Espacios de trabajo
+
+Altiva se organiza por espacios para que la version personal actual pueda crecer sin mezclar responsabilidades:
+
+- Public Site: portafolio, proyectos publicos, servicios y contacto. Rutas principales: `/`, `/sobre-mi`, `/servicios`, `/proyectos`, `/contacto`.
+- Personal Workspace: notas, tareas, estudio, tests, habitos, ideas e IA personal. Rutas principales: `/app/personal`, `/app/personal/notas`, `/app/personal/tareas`, `/app/personal/estudio`, `/app/personal/tests`, `/app/personal/habitos`.
+- Technical Workspace: proyectos de construccion, documentos, presupuestos, reportes, riesgos y estados de avance. Rutas principales: `/app/technical`, `/app/technical/proyectos`, `/app/technical/documentos`, `/app/technical/presupuestos`, `/app/technical/reportes`.
+- Future External Workspace: clientes, empresas, permisos, colaboracion y roles externos. Esta capa queda documentada, pero no implementada en V1.
+
+`/app` funciona como entrada interna y muestra las tarjetas principales de cada espacio. Las rutas antiguas tecnicas (`/app/proyectos`, `/app/documentos`, `/app/presupuestos`, `/app/reportes`) redirigen a las nuevas rutas bajo `/app/technical`.
+
 ## Componentes
 
 - `components/layout`: estructura general.
 - `components/public`: tarjetas publicas.
 - `components/dashboard`: tablas, alertas y resumen de proyectos.
 - `components/chat`: interfaz del asistente.
+- `components/workspace`: tarjetas y estados visuales para espacios de trabajo.
 - `components/ui`: piezas reutilizables pequenas.
 
 ## Altiva Assistant V1
@@ -51,7 +63,7 @@ Antes de conectar datos reales hay que resolver permisos, auditoria, sanitizacio
 
 ## Datos
 
-Los mocks viven en `data/mock.ts`. Las pantallas no deberian definir datos propios salvo constantes de UI muy locales.
+Los mocks viven en `data/mock.ts`. Incluyen datos publicos, datos tecnicos y datos personales de referencia. Las pantallas no deberian definir datos propios salvo constantes de UI muy locales.
 
 Cuando Supabase exista, la migracion esperada es:
 
@@ -59,6 +71,8 @@ Cuando Supabase exista, la migracion esperada es:
 2. Crear funciones de lectura en `lib/db`.
 3. Reemplazar imports desde `data/mock.ts` por servicios tipados.
 4. Mantener los componentes visuales sin conocer detalles de Supabase.
+
+Antes de usar datos reales se debe activar autenticacion, permisos por usuario, politicas de acceso, auditoria y separacion clara entre datos personales, tecnicos y externos.
 
 ## URLs
 

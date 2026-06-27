@@ -1,69 +1,79 @@
-import { BarChart3, FileText, FolderKanban, ListTodo } from "lucide-react";
+import { Bot, Building2, ClipboardList, Lock, Users } from "lucide-react";
 import type { Metadata } from "next";
 
-import { AlertList } from "@/components/dashboard/alert-list";
-import { ProjectSummary } from "@/components/dashboard/project-summary";
-import { StatCard } from "@/components/ui/stat-card";
+import { WorkspaceCard, WorkspaceStatusStrip } from "@/components/workspace/workspace-card";
 import { createPageMetadata } from "@/config/metadata";
-import { budgets, documents, internalProjects, tasks } from "@/data/mock";
-import { formatCurrency } from "@/lib/utils/format";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Dashboard interno",
-  description: "Panel operativo V1 de Altiva para proyectos, documentos, presupuestos y tareas.",
+  description: "Inicio interno de Altiva organizado por espacios de trabajo.",
   path: "/app",
   noIndex: true
 });
 
 export default function AppDashboardPage() {
-  const totalBudget = budgets.reduce((sum, budget) => sum + budget.amount, 0);
-  const pendingDocs = documents.filter((document) => document.status === "pending").length;
-  const pendingTasks = tasks.filter((task) => task.status !== "done").length;
-
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.08em] text-teal-700">
-          Dashboard
-        </p>
-        <h1 className="mt-2 text-3xl font-semibold text-zinc-950">Operacion interna</h1>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-600">
-          Panel V1 para revisar proyectos, presupuestos, documentos, reportes y tareas con
-          datos de referencia no sensibles.
-        </p>
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.08em] text-teal-700">
+            Workspaces
+          </p>
+          <h1 className="mt-2 text-3xl font-semibold text-zinc-950">Altiva interna</h1>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-600">
+            Panel V1 organizado por espacios: trabajo personal, gestion tecnica y una base
+            preparada para colaboracion externa mas adelante.
+          </p>
+        </div>
+        <WorkspaceStatusStrip />
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard
-          label="Proyectos"
-          value={String(internalProjects.length)}
-          description="Proyectos internos de referencia."
-          icon={<FolderKanban className="h-5 w-5" aria-hidden />}
+      <div className="grid gap-5 lg:grid-cols-2">
+        <WorkspaceCard
+          title="Personal Workspace"
+          description="Notas, tareas, estudio, tests, habitos e ideas personales con apoyo de IA."
+          href="/app/personal"
+          icon={<ClipboardList className="h-5 w-5" aria-hidden />}
+          status="Modo demo"
+          meta="Uso personal"
         />
-        <StatCard
-          label="Presupuesto controlado"
-          value={formatCurrency(totalBudget)}
-          description="Monto consolidado de presupuestos."
-          icon={<BarChart3 className="h-5 w-5" aria-hidden />}
+        <WorkspaceCard
+          title="Technical Workspace"
+          description="Proyectos de construccion, documentos, presupuestos, reportes, riesgos y avance."
+          href="/app/technical"
+          icon={<Building2 className="h-5 w-5" aria-hidden />}
+          status="Preparado para datos reales"
+          meta="Uso tecnico"
         />
-        <StatCard
-          label="Documentos pendientes"
-          value={String(pendingDocs)}
-          description="Documentos que requieren revision."
-          icon={<FileText className="h-5 w-5" aria-hidden />}
+        <WorkspaceCard
+          title="Altiva Assistant"
+          description="Asistente para consultas personales, tecnicas, PMP/ITO, reportes y presupuestos."
+          href="/app/asistente"
+          icon={<Bot className="h-5 w-5" aria-hidden />}
+          status="Mock u OpenAI por entorno"
+          meta="IA opcional"
         />
-        <StatCard
-          label="Tareas abiertas"
-          value={String(pendingTasks)}
-          description="Tareas de seguimiento tecnico."
-          icon={<ListTodo className="h-5 w-5" aria-hidden />}
+        <WorkspaceCard
+          title="Future External Workspace"
+          description="Espacio reservado para clientes, empresas, permisos, colaboracion y roles."
+          icon={<Users className="h-5 w-5" aria-hidden />}
+          status="No implementado"
+          meta="Requiere login futuro"
         />
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-        <ProjectSummary />
-        <AlertList />
-      </div>
+      <section className="rounded-lg border border-zinc-200 bg-white p-5">
+        <div className="flex gap-3">
+          <Lock className="mt-1 h-5 w-5 shrink-0 text-teal-700" aria-hidden />
+          <div>
+            <h2 className="text-lg font-semibold text-zinc-950">Privacidad y crecimiento</h2>
+            <p className="mt-2 text-sm leading-6 text-zinc-600">
+              Esta version usa datos de referencia. Antes de ingresar informacion privada se
+              debe activar autenticacion real, permisos, persistencia y politicas de acceso.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { appNavigation, quickActions } from "@/config/navigation";
+import { appNavigationGroups, quickActions } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 
 type AppShellProps = {
@@ -23,20 +23,29 @@ export function AppShell({ children }: AppShellProps) {
             </span>
           </Link>
 
-          <nav className="flex-1 space-y-1 px-4 py-5" aria-label="Navegacion privada">
-            {appNavigation.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-teal-50 hover:text-teal-900"
-                >
-                  <Icon className="h-4 w-4" aria-hidden />
-                  {item.label}
-                </Link>
-              );
-            })}
+          <nav className="flex-1 space-y-5 overflow-y-auto px-4 py-5" aria-label="Navegacion privada">
+            {appNavigationGroups.map((group) => (
+              <div key={group.label}>
+                <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-[0.08em] text-zinc-500">
+                  {group.label}
+                </p>
+                <div className="space-y-1">
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-teal-50 hover:text-teal-900"
+                      >
+                        <Icon className="h-4 w-4" aria-hidden />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </nav>
 
           <div className="border-t border-zinc-200 p-4">
@@ -70,15 +79,18 @@ export function AppShell({ children }: AppShellProps) {
               <p className="text-xs text-zinc-500">Panel interno V1</p>
             </div>
             <div className="flex gap-2 overflow-x-auto lg:hidden">
-              {appNavigation.slice(0, 4).map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-700"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {appNavigationGroups.map((group) => {
+                const item = group.items[0];
+                return (
+                  <Link
+                    key={group.label}
+                    href={item.href}
+                    className="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-700"
+                  >
+                    {group.label}
+                  </Link>
+                );
+              })}
             </div>
             <Link
               href="/login"

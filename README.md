@@ -1,6 +1,6 @@
 # Altiva
 
-Altiva es una base real de plataforma web para un Constructor Civil. Incluye una web publica tipo portafolio y una app interna inicial para proyectos, presupuestos, documentos, reportes, configuracion e IA simulada.
+Altiva es una base real de plataforma web para un Constructor Civil. Incluye una web publica tipo portafolio y una app interna inicial organizada por espacios: personal, tecnico, asistente y configuracion.
 
 La prioridad de esta version es dejar una fundacion ordenada, escalable y lista para desplegarse en Vercel, no una maqueta local aislada.
 
@@ -33,6 +33,7 @@ components/
   layout/                headers, footers y shell privado
   public/                componentes del portafolio
   ui/                    componentes reutilizables
+  workspace/             tarjetas y estados de espacios
 config/                  metadata, navegacion y constantes
 data/                    datos mock centralizados
 docs/                    documentacion tecnica y roadmap
@@ -67,11 +68,18 @@ Rutas principales:
 - `/contacto`
 - `/login`
 - `/app`
-- `/app/proyectos`
-- `/app/presupuestos`
-- `/app/documentos`
+- `/app/personal`
+- `/app/personal/notas`
+- `/app/personal/tareas`
+- `/app/personal/estudio`
+- `/app/personal/tests`
+- `/app/personal/habitos`
+- `/app/technical`
+- `/app/technical/proyectos`
+- `/app/technical/presupuestos`
+- `/app/technical/documentos`
+- `/app/technical/reportes`
 - `/app/asistente`
-- `/app/reportes`
 - `/app/configuracion`
 
 ## Build y validacion
@@ -208,18 +216,21 @@ Falta configurar una integracion de Notion, compartir la base de datos con esa i
 
 La capa esta en `lib/ai`.
 
-Hoy el chat usa respuestas simuladas en `lib/ai/mock-assistant.ts`. Para conectar IA real:
+Hoy el chat usa proveedor mock por defecto y OpenAI opcional solo desde backend. Para activar IA real:
 
 1. Configura `OPENAI_API_KEY`.
-2. Crea una API route server-side.
-3. Reemplaza el cuerpo de `generateAssistantReply`.
-4. Guarda conversaciones en `ai_messages`.
-5. Agrega lectura de documentos cuando Drive/Supabase existan.
+2. Define `AI_PROVIDER=openai`.
+3. Define `AI_MODEL` si quieres usar un modelo especifico.
+4. Manten las claves fuera del frontend.
+5. Guarda conversaciones en `ai_messages` cuando exista Supabase.
+6. Agrega lectura de documentos cuando Drive/Supabase existan.
 
 ## Archivos para revisar primero
 
 - `app/(public)/page.tsx`: portada publica.
-- `app/(private)/app/page.tsx`: dashboard interno.
+- `app/(private)/app/page.tsx`: entrada interna por espacios.
+- `app/(private)/app/personal/page.tsx`: dashboard personal.
+- `app/(private)/app/technical/page.tsx`: dashboard tecnico.
 - `data/mock.ts`: datos simulados.
 - `lib/ai/mock-assistant.ts`: asistente simulado.
 - `lib/utils/urls.ts`: URLs por entorno.

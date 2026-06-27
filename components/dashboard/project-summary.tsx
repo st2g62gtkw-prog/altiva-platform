@@ -9,7 +9,10 @@ export function ProjectSummary() {
     <div className="rounded-lg border border-zinc-200 bg-white p-5">
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold text-zinc-950">Proyectos activos</h2>
-        <Link href="/app/proyectos" className="text-sm font-semibold text-teal-800 hover:text-teal-900">
+        <Link
+          href="/app/technical/proyectos"
+          className="text-sm font-semibold text-teal-800 hover:text-teal-900"
+        >
           Ver todos
         </Link>
       </div>
