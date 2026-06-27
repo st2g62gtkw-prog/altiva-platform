@@ -1,54 +1,43 @@
 # Roadmap Altiva
 
-## Fase 1: Base desplegable
+## Fase 1: Proyecto de Titulo
 
-- Web publica.
-- App privada sin login real, organizada por espacios.
-- Public Site para portafolio, proyectos publicos y contacto.
-- Personal Workspace para notas, tareas, estudio, tests, habitos e IA personal.
-- Technical Workspace para proyectos de construccion, documentos, presupuestos, reportes, riesgos y avance.
-- Future External Workspace documentado, sin implementacion todavia.
-- Datos mock centralizados para cada espacio.
-- Altiva Assistant V1 con API interna, prompt base, modos, proveedor mock y OpenAI opcional server-side.
-- Deploy en Vercel.
-- Documentacion de arquitectura e integraciones.
+- Pagina unica en `/`.
+- Archivos mock.
+- Fuentes mock.
+- Entregables mock.
+- Alertas mock.
+- Chat IA flotante integrado.
+- Redireccion de rutas antiguas a `/`.
 
-## Fase 2: Supabase y autenticacion
+## Fase 2: Login y almacenamiento
 
-- Crear proyecto Supabase.
-- Crear tablas iniciales.
-- Implementar Supabase Auth.
-- Proteger `/app`.
-- Separar datos personales, tecnicos y externos por usuario, rol y permiso.
-- Persistir proyectos.
-- Persistir documentos, presupuestos y reportes.
-- Persistir notas, tareas, estudio, tests y habitos personales.
+- Login real.
+- Supabase.
+- Supabase Storage o Google Drive para archivos.
+- Persistencia de fuentes.
+- Persistencia de entregables.
+- Permisos basicos por usuario.
 
-## Fase 3: Drive y Notion
+## Fase 3: IA con documentos autorizados
 
-- Configurar OAuth de Google.
-- Listar documentos desde Drive.
-- Asociar documentos a proyectos.
-- Configurar integracion Notion.
-- Sincronizar tareas.
-- Registrar estado de integraciones.
+- IA leyendo fuentes/documentos autorizados.
+- Generacion guiada de informes.
+- Checklist contra rubrica.
+- Deteccion de informacion faltante desde archivos reales.
+- Historial de conversaciones.
 
-## Fase 4: IA real
+## Fase 4: Desarrollo tecnico del proyecto
 
-- Activar OpenAI por entorno cuando exista clave real.
-- Mantener fallback mock para desarrollo y errores controlados.
-- Guardar conversaciones.
-- Analizar presupuestos.
-- Leer documentos autorizados.
-- Preparar reportes automaticos.
-- Agregar busqueda inteligente.
-- Agregar evaluaciones de seguridad antes de usar documentos reales o datos de clientes.
+- APUs.
+- Presupuesto.
+- Cronograma MS Project.
+- Reportes tecnicos.
+- Trazabilidad entre fuentes, calculos y entregables.
 
-## Fase 5: Plataforma profesional
+## Fase 5: Integraciones y posible uso profesional
 
-- Multiples usuarios.
-- External Workspace para clientes, empresas, permisos y colaboracion.
-- Roles por proyecto.
-- Auditoria de cambios.
-- Paneles por cliente.
-- Escalabilidad operativa y seguridad avanzada.
+- Drive si conviene para archivos.
+- Notion si conviene para tareas o seguimiento.
+- Uso profesional o clientes solo si vuelve a ser necesario.
+- Roles, permisos y auditoria avanzada.

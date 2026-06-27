@@ -2,16 +2,16 @@ export const siteConfig = {
   name: process.env.NEXT_PUBLIC_APP_NAME || "Altiva",
   legalName: "Altiva",
   description:
-    "Plataforma profesional para gestion tecnica de proyectos de construccion civil.",
+    "Centro de trabajo para organizar archivos, fuentes, entregables y apoyo IA del Proyecto de Título.",
   contactEmail: "contacto@altiva.cl",
   location: "Chile",
   locale: "es_CL",
   keywords: [
-    "constructor civil",
-    "gestion de proyectos",
-    "presupuestos",
-    "documentos tecnicos",
-    "reportes de obra",
+    "proyecto de título",
+    "archivos del proyecto",
+    "fuentes academicas",
+    "entregables",
+    "asistente IA",
     "Chile"
   ],
   social: {

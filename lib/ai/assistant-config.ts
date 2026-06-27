@@ -4,7 +4,7 @@ export const DEFAULT_OPENAI_MODEL = "gpt-5-mini";
 export const DEFAULT_MOCK_MODEL = "altiva-mock-v1";
 
 export const assistantConfig = {
-  name: "Altiva Assistant V1",
+  name: "Altiva Assistant - Proyecto de Título",
   defaultMode: "general" as AssistantMode
 };
 

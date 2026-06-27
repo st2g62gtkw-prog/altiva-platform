@@ -59,7 +59,7 @@ export function ChatPanel() {
           messages: nextMessages,
           mode: selectedMode,
           context: {
-            route: "/app/asistente"
+            route: "/"
           }
         })
       });

@@ -1,85 +1,6 @@
 # Integraciones futuras
 
-## Supabase
-
-Carpeta: `lib/db`
-
-Variables:
-
-```txt
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-```
-
-Tablas sugeridas:
-
-- `users`
-- `projects`
-- `public_projects`
-- `documents`
-- `budgets`
-- `reports`
-- `tasks`
-- `integrations`
-- `ai_messages`
-
-Notas:
-
-- `SUPABASE_SERVICE_ROLE_KEY` solo debe usarse server-side.
-- No exponer claves privadas al navegador.
-- Usar Row Level Security cuando existan usuarios reales.
-
-## Google Drive
-
-Carpeta: `lib/drive`
-
-Variables:
-
-```txt
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=
-```
-
-Funciones preparadas:
-
-- `listDriveDocuments`
-- `uploadDriveDocument`
-- `getDriveDocumentMetadata`
-- `attachDriveDocumentToProject`
-
-Pasos futuros:
-
-1. Crear credenciales OAuth en Google Cloud.
-2. Configurar redirect URI para desarrollo y Vercel.
-3. Guardar tokens de forma segura.
-4. Asociar archivos a proyectos en Supabase.
-
-## Notion
-
-Carpeta: `lib/notion`
-
-Variables:
-
-```txt
-NOTION_TOKEN=
-NOTION_DATABASE_ID=
-```
-
-Funciones preparadas:
-
-- `listNotionTasks`
-- `createNotionTask`
-- `syncProjectWithNotion`
-- `readNotionDatabase`
-
-Pasos futuros:
-
-1. Crear una integracion en Notion.
-2. Compartir la base de datos con la integracion.
-3. Mapear propiedades de proyecto, responsable, fecha y estado.
-4. Resolver conflictos entre Notion y Supabase.
+Por ahora Altiva no conecta Supabase, Drive, Notion ni lectura real de documentos. La UI muestra solo la pagina Proyecto de Titulo con datos mock y chat IA flotante.
 
 ## IA
 
@@ -95,17 +16,13 @@ OPENAI_API_KEY=
 
 Estado actual:
 
-- La UI vive en `components/chat/chat-panel.tsx`.
-- La UI llama a `POST /api/assistant`.
+- El chat visible vive en `components/chat/floating-assistant.tsx`.
+- El chat llama a `POST /api/assistant`.
 - La ruta backend usa `lib/ai/provider.ts`.
-- El proveedor actual es `lib/ai/mock-assistant.ts`.
+- El proveedor mock vive en `lib/ai/mock-assistant.ts`.
 - El proveedor OpenAI opcional vive en `lib/ai/openai-provider.ts`.
-- La lectura de variables server-side vive en `lib/ai/runtime-config.ts`.
-- El prompt base vive en `lib/ai/assistant-prompts.ts`.
-- Los modos disponibles se definen en `lib/ai/assistant-config.ts`.
-- OpenAI solo se usa si `AI_PROVIDER=openai` y existe `OPENAI_API_KEY`.
-- Si falta la clave, el proveedor no es `openai`, o OpenAI falla, Altiva vuelve al mock.
-- `OPENAI_API_KEY` nunca debe exponerse en frontend ni usar prefijo `NEXT_PUBLIC_`.
+- `OPENAI_API_KEY` solo se lee server-side.
+- Si falta clave o falla OpenAI, se usa mock.
 
 Activar OpenAI localmente:
 
@@ -117,14 +34,14 @@ OPENAI_API_KEY=sk-...
 
 Activar OpenAI en Vercel:
 
-1. Entrar al proyecto en Vercel.
-2. Ir a Settings > Environment Variables.
+1. Ir al proyecto en Vercel.
+2. Abrir Settings > Environment Variables.
 3. Agregar `AI_PROVIDER=openai`.
-4. Agregar `AI_MODEL` con el modelo elegido.
-5. Agregar `OPENAI_API_KEY` como secreto.
+4. Agregar `AI_MODEL`.
+5. Agregar `OPENAI_API_KEY`.
 6. Redeploy.
 
-Volver al modo mock:
+Volver a modo mock:
 
 ```txt
 AI_PROVIDER=mock
@@ -132,29 +49,76 @@ AI_MODEL=
 OPENAI_API_KEY=
 ```
 
-Modos preparados:
+## Supabase futuro
 
-- General.
-- Oficina tecnica.
-- Presupuestos.
-- Documentos.
-- Reportes.
-- Estudio PMP/ITO.
-- Gestion de proyectos.
+Carpeta: `lib/db`
 
-Pasos futuros:
+Variables:
 
-1. Mantener `components/chat/chat-panel.tsx` sin claves ni SDKs externos.
-2. Mantener proveedores externos solo en backend.
-3. Usar `altivaSystemPrompt` como prompt base y agregar contexto autorizado.
-4. Guardar mensajes en `ai_messages` cuando exista Supabase.
-5. Conectar contexto desde proyectos, documentos y presupuestos solo con permisos.
-6. Agregar controles de permisos antes de entregar informacion sensible.
+```txt
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+```
 
-Riesgos antes de conectar IA real:
+Uso esperado:
 
-- Exponer informacion privada de proyectos o clientes.
-- Enviar documentos sin permisos claros.
-- Mezclar datos de distintos proyectos o usuarios.
-- Aceptar respuestas inventadas sin trazabilidad.
-- Usar claves en el cliente en lugar del backend.
+- Login.
+- Persistencia de archivos registrados.
+- Persistencia de fuentes.
+- Persistencia de entregables.
+- Historial de conversaciones.
+- Permisos por usuario.
+
+`SUPABASE_SERVICE_ROLE_KEY` solo debe usarse server-side.
+
+## Almacenamiento de archivos
+
+Opciones futuras:
+
+- Supabase Storage.
+- Google Drive.
+
+Antes de habilitar subida real hay que definir:
+
+- Usuario autenticado.
+- Carpeta o bucket.
+- Permisos.
+- Limites de tamano y tipo de archivo.
+- Metadata de categoria, estado y entregable relacionado.
+
+## Google Drive futuro
+
+Carpeta: `lib/drive`
+
+Variables:
+
+```txt
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=
+```
+
+Drive no esta activo en la UI. Podria usarse mas adelante para almacenar o leer documentos autorizados del Proyecto de Titulo.
+
+## Notion futuro
+
+Carpeta: `lib/notion`
+
+Variables:
+
+```txt
+NOTION_TOKEN=
+NOTION_DATABASE_ID=
+```
+
+Notion no esta activo en la UI. Solo podria volver a considerarse si ayuda al seguimiento de tareas o fuentes.
+
+## Riesgos antes de conectar datos reales
+
+- Subir informacion privada sin login.
+- Enviar documentos a IA sin permiso claro.
+- Mezclar fuentes oficiales con referencias no validadas.
+- Generar informes inventando datos faltantes.
+- Exponer claves en frontend.
+- No tener trazabilidad entre pauta, rubrica, fuentes y entregables.

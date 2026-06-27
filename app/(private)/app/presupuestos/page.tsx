@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function LegacyBudgetsPage() {
-  redirect("/app/technical/presupuestos");
+export default function RedirectPage() {
+  redirect("/");
 }

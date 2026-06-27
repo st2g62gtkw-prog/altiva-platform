@@ -10,7 +10,7 @@ export function ProjectSummary() {
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold text-zinc-950">Proyectos activos</h2>
         <Link
-          href="/app/technical/proyectos"
+          href="/"
           className="text-sm font-semibold text-teal-800 hover:text-teal-900"
         >
           Ver todos

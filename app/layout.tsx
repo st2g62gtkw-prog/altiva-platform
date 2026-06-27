@@ -8,7 +8,7 @@ import { getAbsoluteUrl } from "@/lib/utils/urls";
 export const metadata: Metadata = {
   metadataBase: new URL(getAbsoluteUrl("/")),
   title: {
-    default: `${siteConfig.name} | Plataforma para construccion civil`,
+    default: `${siteConfig.name} | Proyecto de Título`,
     template: `%s | ${siteConfig.name}`
   },
   description: siteConfig.description,
