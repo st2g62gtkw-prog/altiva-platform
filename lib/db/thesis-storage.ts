@@ -23,7 +23,8 @@ export function prepareThesisFileMetadata(draft: ThesisFileUploadDraft): ThesisF
     fileType: draft.fileType,
     status: draft.status || "pending",
     notes: draft.notes,
-    storagePath: buildThesisStoragePath(draft.userId, draft.fileName)
+    storagePath: buildThesisStoragePath(draft.userId, draft.fileName),
+    sizeBytes: draft.sizeBytes
   };
 }
 

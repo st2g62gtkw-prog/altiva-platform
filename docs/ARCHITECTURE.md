@@ -4,7 +4,7 @@
 
 Altiva se enfoca por ahora en una sola pagina: Proyecto de Titulo.
 
-La experiencia visible ya no es un portafolio, no muestra workspaces multiples y no presenta modulos de clientes. La ruta `/` concentra archivos mock, fuentes mock, entregables mock y chat IA flotante.
+La experiencia visible ya no es un portafolio, no muestra workspaces multiples y no presenta modulos de clientes. La ruta `/` concentra subida/listado de archivos del Proyecto de Titulo, proximo paso, estado, seguridad y chat IA flotante.
 
 Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige login antes de mostrar la pagina. Si faltan variables de Supabase, el gate deja pasar a modo demo para no romper Vercel ni desarrollo local.
 
@@ -14,6 +14,9 @@ Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige logi
 - `app/(public)/layout.tsx`: layout simple sin header ni footer de portafolio.
 - `app/api/assistant/route.ts`: endpoint backend del asistente.
 - `components/auth/project-auth-gate.tsx`: login basico opcional con Supabase Auth.
+- `components/thesis/thesis-file-upload.tsx`: subida real a Supabase Storage cuando hay sesion.
+- `components/thesis/thesis-file-list.tsx`: lista archivos reales desde `thesis_files` o mock si no hay Supabase.
+- `components/thesis/thesis-files-panel.tsx`: une subida y listado.
 - `next.config.ts`: redirige rutas antiguas a `/`.
 - `app/sitemap.ts`: expone solo `/`.
 - `app/robots.ts`: bloquea rutas antiguas y privadas.
@@ -31,15 +34,15 @@ Rutas redirigidas a `/`:
 
 ## Datos
 
-Los datos visibles del Proyecto de Titulo viven en `data/thesis-project-mock.ts`.
+Los datos demo del Proyecto de Titulo viven en `data/thesis-project-mock.ts`.
 
 Incluyen:
 
 - Datos generales del proyecto.
 - Categorias de archivos.
 - Archivos mock.
-- Fuentes mock.
-- Entregables mock.
+- Fuentes mock para contexto futuro.
+- Entregables mock para contexto futuro.
 - Alertas mock.
 - Preguntas sugeridas para la IA.
 
@@ -54,6 +57,7 @@ La base Supabase esta separada en:
 - `lib/db/supabase-admin.ts`: cliente server-side futuro con `SUPABASE_SERVICE_ROLE_KEY`.
 - `lib/db/thesis-schema.ts`: bucket, tablas y SQL sugerido.
 - `lib/db/thesis-storage.ts`: preparacion de metadata y rutas de archivo.
+- `lib/db/thesis-files.ts`: lectura e insercion de metadata en `thesis_files`.
 
 Tablas preparadas:
 
@@ -65,6 +69,15 @@ Bucket preparado:
 - `thesis-files`
 
 La clave `SUPABASE_SERVICE_ROLE_KEY` no se importa desde componentes cliente y debe usarse solo en backend.
+
+Flujo de subida:
+
+1. El usuario inicia sesion con Supabase Auth.
+2. Selecciona archivo, categoria y observacion.
+3. El cliente crea una ruta segura `{user_id}/{timestamp}-{safe_filename}`.
+4. El archivo se sube al bucket privado `thesis-files`.
+5. La metadata se guarda en `thesis_files`.
+6. La lista se actualiza con los archivos del usuario autenticado.
 
 ## Chat IA flotante
 
@@ -101,11 +114,9 @@ Estas integraciones no se muestran como modulos activos en la UI.
 
 ## Riesgos antes de datos reales
 
-Antes de subir archivos reales hay que implementar:
+Antes de usar documentos para IA hay que implementar:
 
-- Almacenamiento persistente.
-- Consultas reales a Supabase.
 - Politicas RLS verificadas.
 - Validacion de documentos autorizados.
-- Separacion entre datos privados y datos de prueba.
+- Extraccion de texto o lectura controlada de archivos.
 - Auditoria minima de acciones sensibles.

@@ -4,22 +4,23 @@
 
 - Pagina unica en `/`.
 - Limpieza visual de la pagina unica.
-- Archivos mock en resumen compacto.
-- Fuentes mock en resumen compacto.
-- Entregables mock en resumen compacto.
+- Subida de archivos a Supabase Storage si Supabase esta configurado.
+- Lista de archivos desde `thesis_files` si hay sesion.
+- Fallback mock si faltan variables.
 - Chat IA flotante integrado.
 - Login basico opcional cuando Supabase esta configurado.
-- Esquema preparado para `thesis_files`, `thesis_sources` y bucket `thesis-files`.
+- Esquema para `thesis_files`, `thesis_sources` y bucket `thesis-files`.
 - Redireccion de rutas antiguas a `/`.
 
 ## Fase 2: Login y almacenamiento
 
 - Endurecer login y manejo de sesion.
-- Ejecutar schema en Supabase.
-- Supabase Storage para archivos.
+- Ejecutar y validar schema en Supabase.
+- Endurecer politicas de Storage.
 - Persistencia de fuentes.
 - Persistencia de entregables.
 - Permisos basicos por usuario.
+- Edicion y eliminacion segura de archivos.
 
 ## Fase 3: IA con documentos autorizados
 

@@ -2,7 +2,7 @@
 
 Altiva queda enfocada por ahora en una sola experiencia: una pagina unica para el Proyecto de Titulo.
 
-La ruta principal es `/` y muestra una base limpia para ordenar el estado del proyecto, el proximo paso, archivos/fuentes mock, entregables mock y un chat IA flotante.
+La ruta principal es `/` y muestra una base simple para subir archivos del Proyecto de Titulo, ver archivos registrados, revisar el proximo paso y usar un chat IA flotante.
 
 Si Supabase esta configurado, `/` pide login antes de mostrar el area del proyecto. Si Supabase no esta configurado, la pagina sigue funcionando en modo demo con datos mock.
 
@@ -39,15 +39,15 @@ Rutas antiguas redirigidas a `/`:
 La pagina `/` contiene:
 
 - Header del Proyecto de Titulo.
-- Estado del proyecto.
+- Subida de archivo.
+- Lista de archivos subidos.
 - Proximo paso.
-- Resumen compacto de archivos y fuentes.
-- Resumen compacto de entregables.
-- Nota breve para no subir informacion sensible.
+- Estado del proyecto.
+- Recordatorio de seguridad.
 - Chat IA flotante integrado en la misma pagina.
 - Login basico opcional cuando existen variables de Supabase.
 
-Esta version evita tablas largas y modulos visuales que parezcan funciones activas antes de implementar almacenamiento real.
+Si Supabase esta configurado y el usuario inicio sesion, la subida guarda el archivo en Storage y metadata en `thesis_files`. Si Supabase no esta configurado, se muestra una lista demo y la subida queda deshabilitada.
 
 ## Chat IA
 
@@ -142,18 +142,18 @@ Para preparar archivos reales:
 3. Crear tabla `thesis_sources`.
 4. Activar Row Level Security.
 5. Usar politicas por `auth.uid() = user_id`.
+6. Crear politicas de Storage para que cada usuario use solo su carpeta `{user_id}/`.
 
 El SQL sugerido vive en `lib/db/thesis-schema.ts`.
 
-La subida real todavia no esta implementada. La preparacion de metadata y ruta de storage vive en `lib/db/thesis-storage.ts`.
+La subida real vive en `components/thesis/thesis-file-upload.tsx`. El listado vive en `components/thesis/thesis-file-list.tsx`. La preparacion de metadata y ruta de storage vive en `lib/db/thesis-storage.ts`.
 
 ## Que sigue
 
 Antes de usar archivos o datos reales falta:
 
-- Almacenamiento real con Supabase Storage o Google Drive.
 - Persistencia de fuentes y entregables.
-- Consultas reales a `thesis_files` y `thesis_sources`.
+- Edicion o eliminacion de metadata.
 - IA leyendo documentos autorizados.
 - Checklist contra rubrica.
 
@@ -162,7 +162,7 @@ Antes de usar archivos o datos reales falta:
 ```bash
 git status
 git add .
-git commit -m "Focus Altiva on thesis project page"
+git commit -m "Add thesis file upload with Supabase"
 git push
 ```
 

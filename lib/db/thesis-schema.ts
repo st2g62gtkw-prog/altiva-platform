@@ -12,6 +12,7 @@ create table if not exists public.thesis_files (
   status text not null default 'pending',
   notes text,
   storage_path text not null,
+  size_bytes bigint,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -69,4 +70,36 @@ using (auth.uid() = user_id);
 insert into storage.buckets (id, name, public)
 values ('thesis-files', 'thesis-files', false)
 on conflict (id) do nothing;
+
+create policy "Users can read own thesis storage objects"
+on storage.objects for select
+using (
+  bucket_id = 'thesis-files'
+  and (storage.foldername(name))[1] = auth.uid()::text
+);
+
+create policy "Users can upload own thesis storage objects"
+on storage.objects for insert
+with check (
+  bucket_id = 'thesis-files'
+  and (storage.foldername(name))[1] = auth.uid()::text
+);
+
+create policy "Users can update own thesis storage objects"
+on storage.objects for update
+using (
+  bucket_id = 'thesis-files'
+  and (storage.foldername(name))[1] = auth.uid()::text
+)
+with check (
+  bucket_id = 'thesis-files'
+  and (storage.foldername(name))[1] = auth.uid()::text
+);
+
+create policy "Users can delete own thesis storage objects"
+on storage.objects for delete
+using (
+  bucket_id = 'thesis-files'
+  and (storage.foldername(name))[1] = auth.uid()::text
+);
 `.trim();

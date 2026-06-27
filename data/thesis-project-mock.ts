@@ -223,18 +223,18 @@ export const thesisAssistantSuggestedQuestions: Array<{
   mode: AssistantMode;
 }> = [
   {
-    label: "Interpretar instrucciones",
-    prompt: "Ayudame a interpretar las instrucciones del proyecto.",
+    label: "Primer archivo",
+    prompt: "Que archivo debo subir primero?",
     mode: "documentos"
   },
   {
-    label: "Ordenar entregables",
-    prompt: "Organiza los entregables segun la rubrica.",
+    label: "Datos faltantes",
+    prompt: "Que informacion falta para empezar el informe?",
     mode: "gestion_proyectos"
   },
   {
-    label: "Informacion faltante",
-    prompt: "Que informacion necesito antes de redactar el informe.",
+    label: "Rubrica e instrucciones",
+    prompt: "Como organizo la rubrica y las instrucciones?",
     mode: "general"
   },
   {
@@ -244,7 +244,7 @@ export const thesisAssistantSuggestedQuestions: Array<{
   },
   {
     label: "Datos para APUs",
-    prompt: "Que datos faltan para preparar APUs.",
+    prompt: "Que necesito para preparar APUs?",
     mode: "presupuestos"
   },
   {

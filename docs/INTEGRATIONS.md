@@ -1,6 +1,6 @@
 # Integraciones futuras
 
-Por ahora Altiva no conecta Drive, Notion ni lectura real de documentos. Supabase queda preparado para login basico y futuro almacenamiento, pero los archivos/fuentes visibles siguen siendo mock hasta implementar consultas reales.
+Por ahora Altiva no conecta Drive, Notion ni lectura real de documentos. Supabase puede usarse para login, subida de archivos a Storage y metadata en `thesis_files`. Si faltan variables, la pagina sigue en modo demo.
 
 ## IA
 
@@ -65,6 +65,8 @@ Estado actual:
 
 - Login basico desde `components/auth/project-auth-gate.tsx`.
 - Fallback demo si faltan variables.
+- Subida real desde `components/thesis/thesis-file-upload.tsx`.
+- Listado real desde `components/thesis/thesis-file-list.tsx`.
 - Cliente de navegador en `lib/db/supabase-browser.ts`.
 - Cliente admin server-side preparado en `lib/db/supabase-admin.ts`.
 - SQL sugerido en `lib/db/thesis-schema.ts`.
@@ -99,18 +101,20 @@ Bucket sugerido:
 
 ## Almacenamiento de archivos
 
-Opciones futuras:
+Implementacion actual:
 
 - Supabase Storage.
-- Google Drive.
+- Bucket privado `thesis-files`.
+- Ruta por usuario: `{user_id}/{timestamp}-{safe_filename}`.
+- Metadata en `thesis_files`.
 
-Antes de habilitar subida real hay que definir:
+Antes de usarlo en Supabase hay que configurar:
 
 - Usuario autenticado.
-- Carpeta o bucket.
-- Permisos.
-- Limites de tamano y tipo de archivo.
-- Metadata de categoria, estado y entregable relacionado.
+- Bucket privado `thesis-files`.
+- Tabla `thesis_files`.
+- Politicas RLS de tabla.
+- Politicas de Storage por carpeta de usuario.
 
 Metadata preparada para `thesis_files`:
 
@@ -122,6 +126,7 @@ Metadata preparada para `thesis_files`:
 - `status`
 - `notes`
 - `storage_path`
+- `size_bytes`
 - `created_at`
 - `updated_at`
 
@@ -169,6 +174,7 @@ Notion no esta activo en la UI. Solo podria volver a considerarse si ayuda al se
 
 - Subir informacion privada sin login.
 - Enviar documentos a IA sin permiso claro.
+- Usar bucket publico por error.
 - Mezclar fuentes oficiales con referencias no validadas.
 - Generar informes inventando datos faltantes.
 - Exponer claves en frontend.
