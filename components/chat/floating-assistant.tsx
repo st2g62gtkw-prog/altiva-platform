@@ -97,13 +97,11 @@ export function FloatingAssistant() {
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:right-5">
       {isOpen ? (
-        <section className="ml-auto flex max-h-[calc(100vh-2rem)] w-full max-w-[430px] flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-2xl">
+        <section className="ml-auto flex max-h-[calc(100vh-2rem)] w-full max-w-[390px] flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-2xl">
           <header className="flex items-start justify-between gap-3 border-b border-zinc-200 bg-zinc-950 p-4 text-white">
             <div>
               <p className="text-sm font-semibold">Altiva Assistant - Proyecto de Título</p>
-              <p className="mt-1 text-xs leading-5 text-zinc-300">
-                Demo con mock u OpenAI segun entorno. No ingreses datos sensibles.
-              </p>
+              <p className="mt-1 text-xs leading-5 text-zinc-300">Asistencia secundaria. Sin datos sensibles.</p>
             </div>
             <button
               type="button"
@@ -133,7 +131,7 @@ export function FloatingAssistant() {
             </div>
           </div>
 
-          <div className="h-80 space-y-3 overflow-y-auto p-4">
+          <div className="h-72 space-y-3 overflow-y-auto p-4">
             {messages.map((message) => (
               <div
                 key={message.id}

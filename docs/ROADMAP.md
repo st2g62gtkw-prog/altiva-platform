@@ -3,10 +3,10 @@
 ## Fase 1: Proyecto de Titulo
 
 - Pagina unica en `/`.
-- Archivos mock.
-- Fuentes mock.
-- Entregables mock.
-- Alertas mock.
+- Limpieza visual de la pagina unica.
+- Archivos mock en resumen compacto.
+- Fuentes mock en resumen compacto.
+- Entregables mock en resumen compacto.
 - Chat IA flotante integrado.
 - Redireccion de rutas antiguas a `/`.
 

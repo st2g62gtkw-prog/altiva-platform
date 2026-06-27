@@ -2,7 +2,7 @@
 
 Altiva queda enfocada por ahora en una sola experiencia: una pagina unica para el Proyecto de Titulo.
 
-La ruta principal es `/` y muestra un centro de trabajo para organizar archivos mock, fuentes mock, entregables mock y un chat IA flotante.
+La ruta principal es `/` y muestra una base limpia para ordenar el estado del proyecto, el proximo paso, archivos/fuentes mock, entregables mock y un chat IA flotante.
 
 No hay portafolio publico activo, servicios, contacto, workspaces personales, workspace tecnico general ni modulo de clientes en la experiencia visible actual.
 
@@ -37,13 +37,14 @@ Rutas antiguas redirigidas a `/`:
 La pagina `/` contiene:
 
 - Header del Proyecto de Titulo.
-- Advertencia para no subir informacion sensible.
-- Resumen mock del proyecto.
-- Archivos mock por categoria.
-- Fuentes mock.
-- Entregables mock.
-- Alertas mock.
+- Estado del proyecto.
+- Proximo paso.
+- Resumen compacto de archivos y fuentes.
+- Resumen compacto de entregables.
+- Nota breve para no subir informacion sensible.
 - Chat IA flotante integrado en la misma pagina.
+
+Esta version evita tablas largas y modulos visuales que parezcan funciones activas antes de implementar almacenamiento real.
 
 ## Chat IA
 
