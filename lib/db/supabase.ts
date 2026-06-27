@@ -1,34 +1,52 @@
-export type SupabaseEnvironment = {
+export type SupabasePublicConfig = {
   url?: string;
   anonKey?: string;
-  serviceRoleKey?: string;
 };
 
-export function getSupabaseEnvironment(): SupabaseEnvironment {
+export type ConfiguredSupabasePublicConfig = {
+  url: string;
+  anonKey: string;
+};
+
+export function getSupabasePublicConfig(): SupabasePublicConfig {
   return {
-    url: process.env.SUPABASE_URL,
-    anonKey: process.env.SUPABASE_ANON_KEY,
-    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   };
 }
 
-export function assertSupabaseConfigured() {
-  const env = getSupabaseEnvironment();
+export function isSupabasePublicConfigured() {
+  const config = getSupabasePublicConfig();
 
-  if (!env.url || !env.anonKey) {
+  return Boolean(config.url && config.anonKey);
+}
+
+export function assertSupabasePublicConfigured(): ConfiguredSupabasePublicConfig {
+  const config = getSupabasePublicConfig();
+
+  if (!config.url || !config.anonKey) {
     throw new Error(
-      "Supabase is not configured. Set SUPABASE_URL and SUPABASE_ANON_KEY before enabling database features."
+      "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
     );
   }
 
-  return env;
+  return {
+    url: config.url,
+    anonKey: config.anonKey
+  };
 }
 
-export async function createSupabaseClientPlaceholder() {
-  // Future integration point:
-  // 1. Install @supabase/supabase-js.
-  // 2. Create a browser/server client depending on the route.
-  // 3. Replace mock data reads with typed Supabase queries.
-  assertSupabaseConfigured();
-  throw new Error("Supabase client is prepared but not implemented yet.");
+export function getMissingSupabasePublicVariables() {
+  const config = getSupabasePublicConfig();
+  const missing: string[] = [];
+
+  if (!config.url) {
+    missing.push("NEXT_PUBLIC_SUPABASE_URL");
+  }
+
+  if (!config.anonKey) {
+    missing.push("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+  }
+
+  return missing;
 }

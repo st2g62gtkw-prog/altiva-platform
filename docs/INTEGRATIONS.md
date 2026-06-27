@@ -1,6 +1,6 @@
 # Integraciones futuras
 
-Por ahora Altiva no conecta Supabase, Drive, Notion ni lectura real de documentos. La UI muestra solo la pagina Proyecto de Titulo con datos mock y chat IA flotante.
+Por ahora Altiva no conecta Drive, Notion ni lectura real de documentos. Supabase queda preparado para login basico y futuro almacenamiento, pero los archivos/fuentes visibles siguen siendo mock hasta implementar consultas reales.
 
 ## IA
 
@@ -49,28 +49,53 @@ AI_MODEL=
 OPENAI_API_KEY=
 ```
 
-## Supabase futuro
+## Supabase
 
 Carpeta: `lib/db`
 
 Variables:
 
 ```txt
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 ```
 
-Uso esperado:
+Estado actual:
 
-- Login.
-- Persistencia de archivos registrados.
-- Persistencia de fuentes.
-- Persistencia de entregables.
-- Historial de conversaciones.
-- Permisos por usuario.
+- Login basico desde `components/auth/project-auth-gate.tsx`.
+- Fallback demo si faltan variables.
+- Cliente de navegador en `lib/db/supabase-browser.ts`.
+- Cliente admin server-side preparado en `lib/db/supabase-admin.ts`.
+- SQL sugerido en `lib/db/thesis-schema.ts`.
+- Helpers de storage en `lib/db/thesis-storage.ts`.
 
 `SUPABASE_SERVICE_ROLE_KEY` solo debe usarse server-side.
+
+Crear proyecto Supabase:
+
+1. Crear proyecto en Supabase.
+2. Ir a Project Settings > API.
+3. Copiar Project URL a `NEXT_PUBLIC_SUPABASE_URL`.
+4. Copiar anon public key a `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+5. Copiar service_role key a `SUPABASE_SERVICE_ROLE_KEY` solo en entornos backend.
+6. En Authentication, habilitar email/password.
+7. Crear el usuario inicial desde Auth > Users.
+
+Variables en Vercel:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Tablas sugeridas:
+
+- `thesis_files`
+- `thesis_sources`
+
+Bucket sugerido:
+
+- `thesis-files` privado.
 
 ## Almacenamiento de archivos
 
@@ -86,6 +111,32 @@ Antes de habilitar subida real hay que definir:
 - Permisos.
 - Limites de tamano y tipo de archivo.
 - Metadata de categoria, estado y entregable relacionado.
+
+Metadata preparada para `thesis_files`:
+
+- `id`
+- `user_id`
+- `name`
+- `category`
+- `file_type`
+- `status`
+- `notes`
+- `storage_path`
+- `created_at`
+- `updated_at`
+
+Metadata preparada para `thesis_sources`:
+
+- `id`
+- `user_id`
+- `title`
+- `source_type`
+- `status`
+- `expected_use`
+- `related_deliverable`
+- `notes`
+- `created_at`
+- `updated_at`
 
 ## Google Drive futuro
 

@@ -1,12 +1,8 @@
 export const futureTables = [
   "users",
-  "projects",
-  "public_projects",
-  "documents",
-  "budgets",
-  "reports",
-  "tasks",
-  "integrations",
+  "thesis_files",
+  "thesis_sources",
+  "thesis_deliverables",
   "ai_messages"
 ] as const;
 

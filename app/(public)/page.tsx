@@ -1,6 +1,7 @@
 import { Lock, Upload } from "lucide-react";
 import type { Metadata } from "next";
 
+import { ProjectAuthGate } from "@/components/auth/project-auth-gate";
 import { FloatingAssistant } from "@/components/chat/floating-assistant";
 import { createPageMetadata } from "@/config/metadata";
 import {
@@ -52,6 +53,14 @@ function SectionHeading({ title, description }: { title: string; description: st
 }
 
 export default function HomePage() {
+  return (
+    <ProjectAuthGate>
+      <ThesisProjectPage />
+    </ProjectAuthGate>
+  );
+}
+
+function ThesisProjectPage() {
   const filePreview = thesisProjectFiles.slice(0, 3);
   const sourcePreview = thesisSources.slice(0, 3);
   const deliverablePreview = thesisDeliverables.filter((deliverable) =>

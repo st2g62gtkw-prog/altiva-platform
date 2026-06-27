@@ -4,6 +4,8 @@ Altiva queda enfocada por ahora en una sola experiencia: una pagina unica para e
 
 La ruta principal es `/` y muestra una base limpia para ordenar el estado del proyecto, el proximo paso, archivos/fuentes mock, entregables mock y un chat IA flotante.
 
+Si Supabase esta configurado, `/` pide login antes de mostrar el area del proyecto. Si Supabase no esta configurado, la pagina sigue funcionando en modo demo con datos mock.
+
 No hay portafolio publico activo, servicios, contacto, workspaces personales, workspace tecnico general ni modulo de clientes en la experiencia visible actual.
 
 ## Stack
@@ -43,6 +45,7 @@ La pagina `/` contiene:
 - Resumen compacto de entregables.
 - Nota breve para no subir informacion sensible.
 - Chat IA flotante integrado en la misma pagina.
+- Login basico opcional cuando existen variables de Supabase.
 
 Esta version evita tablas largas y modulos visuales que parezcan funciones activas antes de implementar almacenamiento real.
 
@@ -90,8 +93,8 @@ OPENAI_API_KEY=
 AI_PROVIDER=mock
 AI_MODEL=
 
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 
 GOOGLE_CLIENT_ID=
@@ -121,15 +124,36 @@ pnpm lint
 pnpm build
 ```
 
+## Supabase
+
+Para activar login basico:
+
+1. Crear un proyecto en Supabase.
+2. Activar Auth con email/password.
+3. Crear un usuario desde Supabase Auth.
+4. Copiar `Project URL` en `NEXT_PUBLIC_SUPABASE_URL`.
+5. Copiar `anon public key` en `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+6. Guardar `service_role key` en `SUPABASE_SERVICE_ROLE_KEY` solo para backend futuro.
+
+Para preparar archivos reales:
+
+1. Crear bucket privado `thesis-files`.
+2. Crear tabla `thesis_files`.
+3. Crear tabla `thesis_sources`.
+4. Activar Row Level Security.
+5. Usar politicas por `auth.uid() = user_id`.
+
+El SQL sugerido vive en `lib/db/thesis-schema.ts`.
+
+La subida real todavia no esta implementada. La preparacion de metadata y ruta de storage vive en `lib/db/thesis-storage.ts`.
+
 ## Que sigue
 
 Antes de usar archivos o datos reales falta:
 
-- Login real.
-- Supabase.
 - Almacenamiento real con Supabase Storage o Google Drive.
 - Persistencia de fuentes y entregables.
-- Permisos por usuario.
+- Consultas reales a `thesis_files` y `thesis_sources`.
 - IA leyendo documentos autorizados.
 - Checklist contra rubrica.
 

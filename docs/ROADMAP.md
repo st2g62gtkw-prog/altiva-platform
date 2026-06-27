@@ -8,13 +8,15 @@
 - Fuentes mock en resumen compacto.
 - Entregables mock en resumen compacto.
 - Chat IA flotante integrado.
+- Login basico opcional cuando Supabase esta configurado.
+- Esquema preparado para `thesis_files`, `thesis_sources` y bucket `thesis-files`.
 - Redireccion de rutas antiguas a `/`.
 
 ## Fase 2: Login y almacenamiento
 
-- Login real.
-- Supabase.
-- Supabase Storage o Google Drive para archivos.
+- Endurecer login y manejo de sesion.
+- Ejecutar schema en Supabase.
+- Supabase Storage para archivos.
 - Persistencia de fuentes.
 - Persistencia de entregables.
 - Permisos basicos por usuario.
