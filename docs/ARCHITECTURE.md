@@ -30,8 +30,10 @@ El asistente esta separado en capas para que la UI no conozca proveedores extern
 - `lib/ai/types.ts`: contratos `AssistantMessage`, `AssistantMode`, `AssistantContext`, `AssistantProvider` y respuestas.
 - `lib/ai/assistant-config.ts`: configuracion de proveedor, modelo y modos disponibles.
 - `lib/ai/assistant-prompts.ts`: prompt base del sistema, prompts por modo y ejemplos de uso.
-- `lib/ai/mock-assistant.ts`: proveedor mock actual, sin llamadas externas.
-- `lib/ai/provider.ts`: selector de proveedor. Este es el archivo principal para conectar OpenAI mas adelante.
+- `lib/ai/mock-assistant.ts`: proveedor mock, sin llamadas externas.
+- `lib/ai/openai-provider.ts`: proveedor OpenAI opcional, solo server-side.
+- `lib/ai/runtime-config.ts`: lectura server-side de `AI_PROVIDER`, `AI_MODEL` y `OPENAI_API_KEY`.
+- `lib/ai/provider.ts`: selector de proveedor y fallback seguro.
 
 El flujo actual es:
 
@@ -39,9 +41,11 @@ El flujo actual es:
 2. La UI llama a `POST /api/assistant`.
 3. La ruta normaliza el modo y contexto.
 4. `getAssistantResponse` usa el proveedor configurado.
-5. Hoy responde `mockAssistantProvider`.
+5. Si `AI_PROVIDER=openai` y existe `OPENAI_API_KEY`, responde OpenAI.
+6. Si no hay clave, el proveedor no es OpenAI, o la llamada falla, responde `mockAssistantProvider`.
 
-No se usan claves reales ni APIs externas. `AI_PROVIDER=mock` mantiene el comportamiento local y seguro.
+No se exponen claves al cliente. `OPENAI_API_KEY` se lee solo en backend desde `lib/ai/runtime-config.ts`.
+`AI_PROVIDER=mock` mantiene el comportamiento local y seguro.
 
 Antes de conectar datos reales hay que resolver permisos, auditoria, sanitizacion de documentos y control de informacion sensible por usuario/proyecto.
 

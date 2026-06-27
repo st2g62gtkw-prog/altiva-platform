@@ -1,22 +1,30 @@
-import { getAssistantRuntimeConfig } from "@/lib/ai/assistant-config";
 import { mockAssistantProvider } from "@/lib/ai/mock-assistant";
+import { isOpenAIConfigured, openAIAssistantProvider } from "@/lib/ai/openai-provider";
+import { getAssistantRuntimeConfig } from "@/lib/ai/runtime-config";
 import type { AssistantProvider, AssistantRequest, AssistantResponse } from "@/lib/ai/types";
 
 function getAssistantProvider(): AssistantProvider {
   const runtimeConfig = getAssistantRuntimeConfig();
 
-  if (runtimeConfig.provider === "mock") {
-    return mockAssistantProvider;
+  if (runtimeConfig.provider === "openai" && isOpenAIConfigured()) {
+    return openAIAssistantProvider;
   }
 
-  // Future integration point:
-  // Add an OpenAI provider here and return it when AI_PROVIDER=openai.
-  // Keep API keys server-side only. Never call external AI providers from client components.
   return mockAssistantProvider;
 }
 
 export async function sendMessage(request: AssistantRequest): Promise<AssistantResponse> {
-  return getAssistantProvider().sendMessage(request);
+  const provider = getAssistantProvider();
+
+  try {
+    return await provider.sendMessage(request);
+  } catch {
+    const fallbackResponse = await mockAssistantProvider.sendMessage(request);
+    return {
+      ...fallbackResponse,
+      fallback: provider.id !== "mock"
+    };
+  }
 }
 
 export async function getAssistantResponse(

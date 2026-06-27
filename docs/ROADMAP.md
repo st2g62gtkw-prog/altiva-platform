@@ -5,7 +5,7 @@
 - Web publica.
 - App privada sin login real.
 - Datos mock centralizados.
-- Altiva Assistant V1 con API interna, prompt base, modos y proveedor mock.
+- Altiva Assistant V1 con API interna, prompt base, modos, proveedor mock y OpenAI opcional server-side.
 - Deploy en Vercel.
 - Documentacion de arquitectura e integraciones.
 
@@ -29,8 +29,8 @@
 
 ## Fase 4: IA real
 
-- Reemplazar proveedor mock por OpenAI u otro proveedor desde `lib/ai/provider.ts`.
-- Conectar API de IA solo server-side.
+- Activar OpenAI por entorno cuando exista clave real.
+- Mantener fallback mock para desarrollo y errores controlados.
 - Guardar conversaciones.
 - Analizar presupuestos.
 - Leer documentos autorizados.

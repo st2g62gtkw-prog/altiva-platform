@@ -97,12 +97,12 @@ export function ChatPanel() {
             <div>
               <h1 className="text-2xl font-semibold text-zinc-950">Asistente IA</h1>
               <p className="mt-2 text-sm leading-6 text-zinc-600">
-                Altiva Assistant V1 usa un proveedor mock interno. El flujo ya pasa por una
-                API propia para conectar IA real desde backend cuando corresponda.
+                Altiva Assistant V1 puede operar con modo demo o con OpenAI real segun las
+                variables del entorno. La UI nunca recibe claves ni llama proveedores externos.
               </p>
             </div>
             <span className="inline-flex w-fit rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">
-              Modo demo tecnico
+              Mock u OpenAI por entorno
             </span>
           </div>
         </div>
@@ -196,8 +196,8 @@ export function ChatPanel() {
         <section className="rounded-lg border border-zinc-200 bg-white p-5">
           <h2 className="text-lg font-semibold text-zinc-950">Preparado para IA real</h2>
           <p className="mt-3 text-sm leading-6 text-zinc-600">
-            La UI no usa claves ni proveedores externos. El punto de conexion futuro esta en
-            `lib/ai/provider.ts` y la entrada backend en `/api/assistant`.
+            La conexion real se activa solo desde backend con `AI_PROVIDER=openai` y
+            `OPENAI_API_KEY`. Si falta configuracion, Altiva conserva el proveedor mock.
           </p>
         </section>
       </aside>

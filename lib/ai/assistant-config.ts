@@ -1,19 +1,12 @@
-import type { AssistantMode, AssistantProviderId } from "@/lib/ai/types";
+import type { AssistantMode } from "@/lib/ai/types";
+
+export const DEFAULT_OPENAI_MODEL = "gpt-5-mini";
+export const DEFAULT_MOCK_MODEL = "altiva-mock-v1";
 
 export const assistantConfig = {
   name: "Altiva Assistant V1",
   defaultMode: "general" as AssistantMode
 };
-
-export function getAssistantRuntimeConfig() {
-  const env: Partial<Record<string, string>> =
-    typeof process !== "undefined" ? process.env : {};
-
-  return {
-    provider: (env.AI_PROVIDER || "mock") as AssistantProviderId,
-    model: env.AI_MODEL || "altiva-mock-v1"
-  };
-}
 
 export const assistantModes: Array<{
   id: AssistantMode;

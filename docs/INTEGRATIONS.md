@@ -89,7 +89,7 @@ Variables:
 
 ```txt
 AI_PROVIDER=mock
-AI_MODEL=altiva-mock-v1
+AI_MODEL=
 OPENAI_API_KEY=
 ```
 
@@ -99,9 +99,38 @@ Estado actual:
 - La UI llama a `POST /api/assistant`.
 - La ruta backend usa `lib/ai/provider.ts`.
 - El proveedor actual es `lib/ai/mock-assistant.ts`.
+- El proveedor OpenAI opcional vive en `lib/ai/openai-provider.ts`.
+- La lectura de variables server-side vive en `lib/ai/runtime-config.ts`.
 - El prompt base vive en `lib/ai/assistant-prompts.ts`.
 - Los modos disponibles se definen en `lib/ai/assistant-config.ts`.
-- No se llama a OpenAI ni a ningun proveedor externo.
+- OpenAI solo se usa si `AI_PROVIDER=openai` y existe `OPENAI_API_KEY`.
+- Si falta la clave, el proveedor no es `openai`, o OpenAI falla, Altiva vuelve al mock.
+- `OPENAI_API_KEY` nunca debe exponerse en frontend ni usar prefijo `NEXT_PUBLIC_`.
+
+Activar OpenAI localmente:
+
+```txt
+AI_PROVIDER=openai
+AI_MODEL=gpt-5-mini
+OPENAI_API_KEY=sk-...
+```
+
+Activar OpenAI en Vercel:
+
+1. Entrar al proyecto en Vercel.
+2. Ir a Settings > Environment Variables.
+3. Agregar `AI_PROVIDER=openai`.
+4. Agregar `AI_MODEL` con el modelo elegido.
+5. Agregar `OPENAI_API_KEY` como secreto.
+6. Redeploy.
+
+Volver al modo mock:
+
+```txt
+AI_PROVIDER=mock
+AI_MODEL=
+OPENAI_API_KEY=
+```
 
 Modos preparados:
 
@@ -116,7 +145,7 @@ Modos preparados:
 Pasos futuros:
 
 1. Mantener `components/chat/chat-panel.tsx` sin claves ni SDKs externos.
-2. Crear un proveedor OpenAI server-side y conectarlo en `lib/ai/provider.ts`.
+2. Mantener proveedores externos solo en backend.
 3. Usar `altivaSystemPrompt` como prompt base y agregar contexto autorizado.
 4. Guardar mensajes en `ai_messages` cuando exista Supabase.
 5. Conectar contexto desde proyectos, documentos y presupuestos solo con permisos.

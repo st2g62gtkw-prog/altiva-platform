@@ -36,6 +36,7 @@ export type AssistantResponse = {
   mode: AssistantMode;
   provider: AssistantProviderId;
   model: string;
+  fallback?: boolean;
 };
 
 export type AssistantProvider = {

@@ -1,4 +1,7 @@
-import { assistantConfig, getAssistantRuntimeConfig } from "@/lib/ai/assistant-config";
+import {
+  DEFAULT_MOCK_MODEL,
+  assistantConfig
+} from "@/lib/ai/assistant-config";
 import { modePrompts } from "@/lib/ai/assistant-prompts";
 import type {
   AssistantMessage,
@@ -54,10 +57,9 @@ function buildMockAnswer(request: AssistantRequest) {
 
 export const mockAssistantProvider: AssistantProvider = {
   id: "mock",
-  model: getAssistantRuntimeConfig().model,
+  model: DEFAULT_MOCK_MODEL,
   async sendMessage(request) {
     const mode = request.context?.mode || assistantConfig.defaultMode;
-    const runtimeConfig = getAssistantRuntimeConfig();
     const message: AssistantMessage = {
       id: createId(),
       role: "assistant",
@@ -69,7 +71,7 @@ export const mockAssistantProvider: AssistantProvider = {
       message,
       mode,
       provider: "mock",
-      model: runtimeConfig.model
+      model: DEFAULT_MOCK_MODEL
     };
   }
 };

@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 
 import { assistantConfig, isAssistantMode } from "@/lib/ai/assistant-config";
 import { getAssistantResponse } from "@/lib/ai/provider";
-import type { AssistantApiRequest, AssistantApiResponse } from "@/lib/ai/types";
+import type {
+  AssistantApiRequest,
+  AssistantApiResponse,
+  AssistantResponse
+} from "@/lib/ai/types";
 
 function getPromptFromRequest(body: AssistantApiRequest) {
   const explicitPrompt = body.prompt?.trim();
@@ -18,18 +22,51 @@ function getPromptFromRequest(body: AssistantApiRequest) {
   return lastUserMessage?.content.trim() || "";
 }
 
-export async function POST(request: Request) {
+function isValidAssistantResponse(response: AssistantResponse) {
+  return Boolean(
+    response.message &&
+      response.message.role === "assistant" &&
+      response.message.content.trim() &&
+      response.provider &&
+      response.model
+  );
+}
+
+async function readAssistantRequest(request: Request): Promise<AssistantApiRequest | null> {
   try {
-    const body = (await request.json()) as AssistantApiRequest;
-    const prompt = getPromptFromRequest(body);
+    return (await request.json()) as AssistantApiRequest;
+  } catch {
+    return null;
+  }
+}
 
-    if (!prompt) {
-      return NextResponse.json<AssistantApiResponse>(
-        { error: "Debes enviar una consulta para el asistente." },
-        { status: 400 }
-      );
-    }
+export async function POST(request: Request) {
+  const body = await readAssistantRequest(request);
 
+  if (!body) {
+    return NextResponse.json<AssistantApiResponse>(
+      { error: "La solicitud del asistente no tiene un formato valido." },
+      { status: 400 }
+    );
+  }
+
+  const prompt = getPromptFromRequest(body);
+
+  if (!prompt) {
+    return NextResponse.json<AssistantApiResponse>(
+      { error: "Debes enviar una consulta para el asistente." },
+      { status: 400 }
+    );
+  }
+
+  if (body.mode && !isAssistantMode(body.mode)) {
+    return NextResponse.json<AssistantApiResponse>(
+      { error: "El modo seleccionado no es valido." },
+      { status: 400 }
+    );
+  }
+
+  try {
     const mode = isAssistantMode(body.mode) ? body.mode : assistantConfig.defaultMode;
     const response = await getAssistantResponse({
       prompt,
@@ -39,6 +76,13 @@ export async function POST(request: Request) {
         mode
       }
     });
+
+    if (!isValidAssistantResponse(response)) {
+      return NextResponse.json<AssistantApiResponse>(
+        { error: "El proveedor del asistente devolvio una respuesta invalida." },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json<AssistantApiResponse>(response);
   } catch {
