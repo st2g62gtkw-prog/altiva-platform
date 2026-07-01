@@ -2,7 +2,7 @@
 
 Altiva queda enfocada por ahora en una sola experiencia: una pagina unica para el Proyecto de Titulo.
 
-La ruta principal es `/` y muestra una base simple para subir archivos del Proyecto de Titulo, ver archivos registrados, revisar el proximo paso, abrir el generador de APUs V1 y usar un chat IA flotante.
+La ruta principal es `/` y muestra una base simple para subir archivos del Proyecto de Titulo, ver archivos registrados, revisar el proximo paso, abrir herramientas de entregables y usar un chat IA flotante.
 
 Si Supabase esta configurado, `/` pide login antes de mostrar el area del proyecto. Si Supabase no esta configurado, la pagina sigue funcionando en modo demo con datos mock.
 
@@ -23,6 +23,9 @@ Ruta activa:
 
 - `/`: pagina unica Proyecto de Titulo.
 - `/apus`: generador local de APUs base desde itemizado y formato Excel.
+- `/cubicar`: arquitectura visual del modulo futuro de cubicaciones.
+- `/documentacion-tecnica`: arquitectura visual del modulo futuro de documentacion tecnica.
+- `/documentacion-administrativa`: arquitectura visual del modulo futuro de documentacion administrativa.
 
 Rutas antiguas redirigidas a `/`:
 
@@ -46,7 +49,7 @@ La pagina `/` contiene:
 - Diagnostico de archivos y faltantes.
 - Estado del proyecto.
 - Recordatorio de seguridad.
-- Acceso al modulo "Generar APUs con Itemizado".
+- Seccion "Entregables y herramientas" con APUs disponible y tres modulos futuros.
 - Chat IA flotante integrado en la misma pagina.
 - Login basico opcional cuando existen variables de Supabase.
 
@@ -105,6 +108,16 @@ Placeholders soportados en el formato APU:
 ```
 
 APUs V1 es deterministico y funciona en el navegador. No usa IA, no sube archivos a Supabase, no completa recursos, no inventa rendimientos, no inventa precios y no calcula totales. El resultado es una base ordenada para revision profesional posterior.
+
+## Modulos futuros
+
+Altiva deja preparadas tres rutas como arquitectura visual y tecnica para IA futura:
+
+- `/cubicar`: flujo futuro para subir planos, detectar elementos/partidas, revisar criterios de medicion, generar cubicaciones y exportar respaldo.
+- `/documentacion-tecnica`: flujo futuro para seleccionar fuentes, revisar requisitos tecnicos, detectar faltantes, generar borradores tecnicos y validar fuentes.
+- `/documentacion-administrativa`: flujo futuro para seleccionar bases/formularios, detectar campos requeridos, identificar faltantes, generar borradores administrativos y revisar/exportar.
+
+Estos modulos estan marcados como `Proximamente` o `Preparado para IA`. No leen planos, no ejecutan OCR, no extraen datos, no usan Supabase, no generan documentos finales y no exportan Word/Excel/PDF todavia. APUs sigue siendo el unico modulo funcional de generacion actual.
 
 ## Chat IA
 
@@ -215,13 +228,14 @@ Antes de usar archivos o datos reales falta:
 - Extraccion de texto y validacion de fuentes.
 - Checklist contra rubrica.
 - Completar APUs con recursos, rendimientos, precios y validacion tecnica.
+- Activar Cubicar, Documentacion tecnica y Documentacion administrativa con IA documental, extraccion de datos y validacion de fuentes.
 
 ## Subir a GitHub/Vercel
 
 ```bash
 git status
 git add .
-git commit -m "Add thesis readiness diagnosis"
+git commit -m "Add future project modules"
 git push
 ```
 

@@ -15,6 +15,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8
+    },
+    {
+      url: getAbsoluteUrl("/cubicar"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5
+    },
+    {
+      url: getAbsoluteUrl("/documentacion-tecnica"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5
+    },
+    {
+      url: getAbsoluteUrl("/documentacion-administrativa"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5
     }
   ];
 }

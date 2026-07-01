@@ -8,6 +8,9 @@
 - Lista de archivos desde `thesis_files` si hay sesion.
 - Diagnostico V1 basado en metadata y categorias.
 - Modulo APUs V1 deterministico en `/apus`.
+- Arquitectura visual de Cubicar en `/cubicar`.
+- Arquitectura visual de Documentacion tecnica en `/documentacion-tecnica`.
+- Arquitectura visual de Documentacion administrativa en `/documentacion-administrativa`.
 - Fallback mock si faltan variables.
 - Chat IA flotante integrado.
 - Login basico opcional cuando Supabase esta configurado.
@@ -28,15 +31,19 @@
 
 - Extraccion de texto desde documentos autorizados.
 - IA leyendo fuentes/documentos autorizados.
-- Generacion guiada de informes.
+- Generacion guiada de informes y documentacion.
 - Checklist contra rubrica.
 - Deteccion de informacion faltante desde archivos reales.
 - Historial de conversaciones.
+- Separacion de datos reales, supuestos y faltantes en borradores.
 
 ## Fase 4: Desarrollo tecnico del proyecto
 
 - APUs V1 base desde itemizado y formato Excel.
 - Completar APUs con recursos, rendimientos, precios y validacion tecnica.
+- Cubicar con lectura controlada de planos, criterios de medicion y respaldo auditable.
+- Documentacion tecnica con fuentes citadas y validacion de requisitos.
+- Documentacion administrativa con deteccion de campos, faltantes y checklist documental.
 - Presupuesto.
 - Cronograma MS Project.
 - Reportes tecnicos.

@@ -4,7 +4,7 @@
 
 Altiva se enfoca por ahora en una sola pagina: Proyecto de Titulo.
 
-La experiencia visible ya no es un portafolio, no muestra workspaces multiples y no presenta modulos de clientes. La ruta `/` concentra subida/listado de archivos del Proyecto de Titulo, diagnostico de faltantes, proximo paso, estado, acceso a APUs V1 y chat IA flotante.
+La experiencia visible ya no es un portafolio, no muestra workspaces multiples y no presenta modulos de clientes. La ruta `/` concentra subida/listado de archivos del Proyecto de Titulo, diagnostico de faltantes, proximo paso, estado, herramientas de entregables y chat IA flotante.
 
 Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige login antes de mostrar la pagina. Si faltan variables de Supabase, el gate deja pasar a modo demo para no romper Vercel ni desarrollo local.
 
@@ -12,6 +12,9 @@ Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige logi
 
 - `app/(public)/page.tsx`: pagina unica Proyecto de Titulo.
 - `app/(public)/apus/page.tsx`: modulo "Generar APUs con Itemizado".
+- `app/(public)/cubicar/page.tsx`: arquitectura futura del modulo Cubicar.
+- `app/(public)/documentacion-tecnica/page.tsx`: arquitectura futura de documentacion tecnica.
+- `app/(public)/documentacion-administrativa/page.tsx`: arquitectura futura de documentacion administrativa.
 - `app/(public)/layout.tsx`: layout simple sin header ni footer de portafolio.
 - `app/api/assistant/route.ts`: endpoint backend del asistente.
 - `components/auth/project-auth-gate.tsx`: login basico opcional con Supabase Auth.
@@ -23,11 +26,15 @@ Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige logi
 - `components/apus/apu-generator-workspace.tsx`: flujo cliente para cargar itemizado, mapear columnas, revisar preview y descargar APUs.
 - `components/apus/apu-file-upload.tsx`: input reutilizable para itemizado y formato APU.
 - `components/apus/apu-preview-table.tsx`: tabla de revision y exclusion de filas.
+- `components/modules/module-action-card.tsx`: tarjeta reutilizable para accesos a modulos desde `/`.
+- `components/modules/coming-soon-module.tsx`: plantilla reutilizable para modulos futuros.
+- `components/modules/module-step-list.tsx`: lista reutilizable de pasos del flujo.
+- `data/project-modules.ts`: catalogo central de modulos disponibles y futuros.
 - `lib/apus/itemized-parser.ts`: lectura local de `.xlsx`, `.xls` y `.csv`, deteccion de columnas y generacion de preview.
 - `lib/apus/apu-generator.ts`: generacion local del Excel final.
 - `lib/thesis/readiness.ts`: calculo reutilizable del diagnostico.
 - `next.config.ts`: redirige rutas antiguas a `/`.
-- `app/sitemap.ts`: expone solo `/`.
+- `app/sitemap.ts`: expone `/`, `/apus` y rutas futuras visibles.
 - `app/robots.ts`: bloquea rutas antiguas y privadas.
 
 Rutas redirigidas a `/`:
@@ -142,6 +149,35 @@ El formato APU puede incluir:
 
 Si el formato no contiene placeholders, se genera una base interna. La V1 no usa IA, no guarda archivos, no lee Supabase, no calcula precios y no completa recursos ni rendimientos.
 
+## Modulos futuros
+
+Los modulos `Cubicar`, `Documentacion tecnica` y `Documentacion administrativa` comparten estructura en `data/project-modules.ts`.
+
+Cada modulo declara:
+
+- `id`
+- `title`
+- `href`
+- `description`
+- `status`
+- `isAvailable`
+- `requiredInputs`
+- `relatedSources`
+- `steps`
+- `futureOutputs`
+- `expectedOutputs`
+- `warning`
+
+Esto deja preparada la arquitectura para conectar IA mas adelante sin rehacer navegacion ni estructura visual.
+
+Estado actual:
+
+- `/cubicar`: visualiza el flujo futuro para planos, deteccion de partidas, criterios de medicion, cubicacion y respaldo.
+- `/documentacion-tecnica`: visualiza el flujo futuro para fuentes tecnicas, requisitos, faltantes, borrador y validacion.
+- `/documentacion-administrativa`: visualiza el flujo futuro para bases, formularios, campos requeridos, faltantes, borrador y revision.
+
+Estas rutas no ejecutan IA real, no leen planos, no hacen OCR, no conectan Supabase, no generan entregables finales y no exportan documentos. APUs es el unico modulo funcional de generacion actual.
+
 ## Chat IA flotante
 
 El chat integrado vive en `components/chat/floating-assistant.tsx`.
@@ -163,7 +199,8 @@ El asistente se enfoca en:
 - Detectar informacion faltante.
 - Revisar archivos disponibles y faltantes antes de proponer entregables.
 - Estructurar informes contra pauta o rubrica.
-- Preparar APUs, presupuesto, cronograma y reportes mas adelante.
+- Preparar APUs, presupuesto, cronograma, cubicaciones y documentacion mas adelante.
+- Reconocer que Cubicar, Documentacion tecnica y Documentacion administrativa son roadmap y no capacidades activas.
 
 ## Capas futuras mantenidas
 
@@ -185,3 +222,4 @@ Antes de usar documentos para IA hay que implementar:
 - Extraccion de texto o lectura controlada de archivos.
 - Auditoria minima de acciones sensibles.
 - Validacion tecnica antes de usar APUs generados como entregable profesional.
+- Separacion clara entre datos reales, supuestos y faltantes antes de generar documentacion con IA.
