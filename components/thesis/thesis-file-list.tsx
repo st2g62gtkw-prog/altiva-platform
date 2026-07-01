@@ -1,5 +1,7 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
+
 import type { ThesisFileMetadata } from "@/types/thesis";
 
 type ThesisFileListProps = {
@@ -7,6 +9,8 @@ type ThesisFileListProps = {
   isLoading?: boolean;
   error?: string;
   demoMode?: boolean;
+  deletingFileKey?: string;
+  onDelete?: (file: ThesisFileMetadata) => Promise<void> | void;
 };
 
 function formatDate(value?: string) {
@@ -33,7 +37,14 @@ function formatSize(value?: number | null) {
   return `${(value / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-export function ThesisFileList({ files, isLoading, error, demoMode }: ThesisFileListProps) {
+export function ThesisFileList({
+  files,
+  isLoading,
+  error,
+  demoMode,
+  deletingFileKey,
+  onDelete
+}: ThesisFileListProps) {
   return (
     <section className="rounded-lg border border-zinc-200 bg-white p-5">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
@@ -65,26 +76,54 @@ export function ThesisFileList({ files, isLoading, error, demoMode }: ThesisFile
       ) : null}
 
       <div className="mt-5 space-y-3">
-        {files.map((file) => (
-          <article key={file.id || file.storagePath} className="rounded-md border border-zinc-200 p-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-              <div className="min-w-0">
-                <h3 className="break-words font-semibold text-zinc-950">{file.name}</h3>
-                <p className="mt-1 text-sm text-zinc-500">
-                  {file.category} - {file.fileType}
-                </p>
+        {files.map((file) => {
+          const fileKey = file.id || file.storagePath;
+          const isDeleting = deletingFileKey === fileKey;
+
+          return (
+            <article key={fileKey} className="rounded-md border border-zinc-200 p-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0">
+                  <h3 className="break-words font-semibold text-zinc-950">{file.name}</h3>
+                  <p className="mt-1 text-sm text-zinc-500">
+                    {file.category} - {file.fileType}
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="w-fit rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                    {file.status}
+                  </span>
+                  {demoMode ? (
+                    <button
+                      type="button"
+                      disabled
+                      className="inline-flex min-h-8 items-center rounded-md border border-zinc-200 bg-zinc-50 px-2.5 text-xs font-semibold text-zinc-500 disabled:cursor-not-allowed"
+                    >
+                      Disponible con almacenamiento real
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={!onDelete || isDeleting}
+                      onClick={() => {
+                        void onDelete?.(file);
+                      }}
+                      className="inline-flex min-h-8 items-center gap-1.5 rounded-md border border-red-200 px-2.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:border-zinc-200 disabled:bg-zinc-50 disabled:text-zinc-400"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" aria-hidden />
+                      {isDeleting ? "Eliminando..." : "Eliminar"}
+                    </button>
+                  )}
+                </div>
               </div>
-              <span className="w-fit rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600">
-                {file.status}
-              </span>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs font-medium text-zinc-500">
-              <span>{formatDate(file.createdAt)}</span>
-              <span>{formatSize(file.sizeBytes)}</span>
-            </div>
-            {file.notes ? <p className="mt-3 text-sm leading-6 text-zinc-600">{file.notes}</p> : null}
-          </article>
-        ))}
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs font-medium text-zinc-500">
+                <span>{formatDate(file.createdAt)}</span>
+                <span>{formatSize(file.sizeBytes)}</span>
+              </div>
+              {file.notes ? <p className="mt-3 text-sm leading-6 text-zinc-600">{file.notes}</p> : null}
+            </article>
+          );
+        })}
       </div>
     </section>
   );

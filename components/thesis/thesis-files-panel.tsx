@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { thesisProjectFiles } from "@/data/thesis-project-mock";
 import { isSupabasePublicConfigured } from "@/lib/db/supabase";
 import { createSupabaseBrowserClient } from "@/lib/db/supabase-browser";
-import { listThesisFiles } from "@/lib/db/thesis-files";
+import { deleteThesisFileMetadata, listThesisFiles } from "@/lib/db/thesis-files";
+import { removeThesisStorageFile } from "@/lib/db/thesis-storage";
 import type { ThesisFileMetadata } from "@/types/thesis";
 import { ThesisFileList } from "@/components/thesis/thesis-file-list";
 import { ThesisFileUpload } from "@/components/thesis/thesis-file-upload";
@@ -35,6 +36,7 @@ export function ThesisFilesPanel({ onFilesChange }: ThesisFilesPanelProps) {
     supabaseEnabled ? [] : getMockFiles()
   );
   const [isLoading, setIsLoading] = useState(supabaseEnabled);
+  const [deletingFileKey, setDeletingFileKey] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -78,6 +80,69 @@ export function ThesisFilesPanel({ onFilesChange }: ThesisFilesPanelProps) {
     setFiles((current) => [file, ...current]);
   }
 
+  async function handleDelete(file: ThesisFileMetadata) {
+    if (!supabaseEnabled) {
+      setError("La eliminacion esta disponible solo con almacenamiento real configurado.");
+      return;
+    }
+
+    if (!file.id) {
+      setError("No fue posible eliminar: falta el id del registro en thesis_files.");
+      return;
+    }
+
+    if (!file.storagePath) {
+      setError("No fue posible eliminar: falta storage_path del archivo.");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      "¿Eliminar este archivo? Esta acción quitará el archivo del almacenamiento y de la lista."
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    const fileKey = file.id || file.storagePath;
+    setDeletingFileKey(fileKey);
+    setError("");
+
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const {
+        data: { session }
+      } = await supabase.auth.getSession();
+
+      if (!session?.user) {
+        setError("Debes iniciar sesion para eliminar archivos.");
+        return;
+      }
+
+      try {
+        await removeThesisStorageFile(supabase, file.storagePath);
+      } catch {
+        setError("No fue posible eliminar el archivo de Storage. No se elimino el registro en thesis_files.");
+        return;
+      }
+
+      try {
+        await deleteThesisFileMetadata(supabase, file.id);
+      } catch {
+        setError(
+          "El archivo se elimino de Storage, pero fallo el borrado en thesis_files. Revisa RLS o la tabla."
+        );
+        return;
+      }
+
+      setFiles((current) => current.filter((item) => (item.id || item.storagePath) !== fileKey));
+    } catch {
+      setError("No fue posible eliminar el archivo. Revisa la sesion y la configuracion de Supabase.");
+    } finally {
+      setDeletingFileKey("");
+    }
+  }
+
   return (
     <div className="space-y-5">
       <ThesisFileUpload enabled={supabaseEnabled} onUploaded={handleUploaded} />
@@ -86,6 +151,8 @@ export function ThesisFilesPanel({ onFilesChange }: ThesisFilesPanelProps) {
         isLoading={isLoading}
         error={error}
         demoMode={!supabaseEnabled}
+        deletingFileKey={deletingFileKey}
+        onDelete={handleDelete}
       />
     </div>
   );

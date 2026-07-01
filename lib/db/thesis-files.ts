@@ -60,3 +60,20 @@ export async function insertThesisFileMetadata(
 
   return mapThesisFileRow(data as ThesisFileRow);
 }
+
+export async function deleteThesisFileMetadata(supabase: SupabaseClient, fileId: string) {
+  const { data, error } = await supabase
+    .from(THESIS_FILES_TABLE)
+    .delete()
+    .eq("id", fileId)
+    .select("id")
+    .maybeSingle();
+
+  if (error) {
+    throw error;
+  }
+
+  if (!data) {
+    throw new Error("No thesis_files row was deleted.");
+  }
+}

@@ -1,3 +1,5 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+
 import { THESIS_FILES_BUCKET } from "@/lib/db/thesis-schema";
 import type { ThesisFileMetadata, ThesisFileUploadDraft } from "@/types/thesis";
 
@@ -30,4 +32,12 @@ export function prepareThesisFileMetadata(draft: ThesisFileUploadDraft): ThesisF
 
 export function getThesisStorageBucket() {
   return THESIS_FILES_BUCKET;
+}
+
+export async function removeThesisStorageFile(supabase: SupabaseClient, storagePath: string) {
+  const { error } = await supabase.storage.from(getThesisStorageBucket()).remove([storagePath]);
+
+  if (error) {
+    throw error;
+  }
 }
