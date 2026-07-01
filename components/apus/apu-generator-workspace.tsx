@@ -168,24 +168,24 @@ export function ApuGeneratorWorkspace() {
   const validIncludedCount = previewItems.filter((item) => item.included && item.activity).length;
 
   return (
-    <main className="min-h-screen bg-zinc-100 pb-16">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6 lg:px-8">
+    <main className="altiva-page min-h-screen pb-16">
+      <header className="altiva-hero border-b border-white/10">
+        <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-semibold text-zinc-200 hover:bg-white/15 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
             Volver a Proyecto de Titulo
           </Link>
-          <div className="mt-5 max-w-3xl">
-            <span className="w-fit rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-600">
+          <div className="mt-7 max-w-3xl">
+            <span className="w-fit rounded-full border border-teal-300/30 bg-teal-300/10 px-3 py-1 text-xs font-semibold text-teal-100">
               APUs V1 deterministicos
             </span>
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-950 md:text-5xl">
+            <h1 className="mt-4 text-4xl font-semibold text-white md:text-5xl">
               Generar APUs con Itemizado
             </h1>
-            <p className="mt-3 text-base leading-7 text-zinc-600">
+            <p className="mt-3 text-base leading-7 text-zinc-300">
               Sube un itemizado y un formato de APU. Altiva generara un APU por cada actividad
               detectada. Esta version solo crea APUs base, sin recursos ni precios.
             </p>
@@ -215,8 +215,11 @@ export function ApuGeneratorWorkspace() {
           </div>
 
           {parsedItemized ? (
-            <section className="rounded-lg border border-zinc-200 bg-white p-5">
+            <section className="altiva-surface rounded-2xl p-5 sm:p-6">
               <div className="flex flex-col gap-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-teal-700">
+                  Control de datos
+                </p>
                 <h2 className="text-lg font-semibold text-zinc-950">Paso 3: mapear columnas</h2>
                 <p className="text-sm leading-6 text-zinc-600">
                   Hoja leida: {parsedItemized.sheetName}. Actividad es obligatoria; las demas
@@ -234,7 +237,7 @@ export function ApuGeneratorWorkspace() {
                     <select
                       value={mapping[field.key] || ""}
                       onChange={(event) => updateMapping(field.key, event.target.value)}
-                      className="mt-2 min-h-11 w-full rounded-md border border-zinc-300 bg-white px-3 text-sm text-zinc-700 outline-none focus:border-teal-700"
+                      className="mt-2 min-h-11 w-full rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-700 outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-700/20"
                     >
                       <option value="">No usar</option>
                       {parsedItemized.headers.map((header) => (
@@ -254,7 +257,10 @@ export function ApuGeneratorWorkspace() {
         </section>
 
         <aside className="space-y-5">
-          <section className="rounded-lg border border-zinc-200 bg-white p-5">
+          <section className="rounded-2xl border border-teal-200/80 bg-white p-5 shadow-[0_18px_50px_rgba(15,118,110,0.12)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-teal-700">
+              Salida
+            </p>
             <h2 className="font-semibold text-zinc-950">Paso 4: generar Excel</h2>
             <p className="mt-2 text-sm leading-6 text-zinc-600">
               El archivo tendra una hoja Resumen y una hoja por cada APU seleccionado.
@@ -265,7 +271,7 @@ export function ApuGeneratorWorkspace() {
               onClick={() => {
                 void handleGenerate();
               }}
-              className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-teal-700 px-4 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:text-zinc-600"
+              className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 text-sm font-semibold text-white shadow-lg shadow-teal-900/10 hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none"
             >
               <Download className="h-4 w-4" aria-hidden />
               {isGenerating ? "Generando..." : "Generar APUs"}
@@ -275,13 +281,13 @@ export function ApuGeneratorWorkspace() {
             </p>
           </section>
 
-          <section className="rounded-lg border border-zinc-200 bg-white p-5">
+          <section className="altiva-surface-soft rounded-2xl p-5">
             <h2 className="font-semibold text-zinc-950">Placeholders soportados</h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {apuPlaceholders.map((placeholder) => (
                 <span
                   key={placeholder}
-                  className="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-1 text-xs font-semibold text-zinc-600"
+                  className="rounded-lg border border-cyan-200 bg-cyan-50 px-2 py-1 text-xs font-semibold text-cyan-800"
                 >
                   {placeholder}
                 </span>
@@ -289,7 +295,7 @@ export function ApuGeneratorWorkspace() {
             </div>
           </section>
 
-          <section className="rounded-lg border border-zinc-200 bg-white p-5">
+          <section className="altiva-surface-soft rounded-2xl p-5">
             <h2 className="font-semibold text-zinc-950">Limites de V1</h2>
             <ul className="mt-3 space-y-2 text-sm leading-6 text-zinc-600">
               <li>No usa IA.</li>
@@ -301,7 +307,7 @@ export function ApuGeneratorWorkspace() {
           </section>
 
           {isReading ? (
-            <p className="rounded-md border border-zinc-200 bg-white p-4 text-sm text-zinc-600">
+            <p className="rounded-xl border border-zinc-200 bg-white/90 p-4 text-sm text-zinc-600 shadow-sm">
               Leyendo itemizado...
             </p>
           ) : null}
@@ -311,7 +317,7 @@ export function ApuGeneratorWorkspace() {
               className={
                 messageType === "error"
                   ? "flex gap-2 rounded-md border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800"
-                  : "flex gap-2 rounded-md border border-zinc-200 bg-white p-4 text-sm leading-6 text-zinc-700"
+                  : "flex gap-2 rounded-xl border border-zinc-200 bg-white p-4 text-sm leading-6 text-zinc-700 shadow-sm"
               }
             >
               {messageType === "error" ? (
@@ -324,7 +330,7 @@ export function ApuGeneratorWorkspace() {
           ) : null}
 
           {warnings.length > 0 ? (
-            <div className="rounded-md border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900 shadow-[0_12px_35px_rgba(180,83,9,0.10)]">
               <div className="flex gap-2 font-semibold">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
                 Advertencias

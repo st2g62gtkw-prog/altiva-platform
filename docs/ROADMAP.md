@@ -11,6 +11,8 @@
 - Arquitectura visual de Cubicar en `/cubicar`.
 - Arquitectura visual de Documentacion tecnica en `/documentacion-tecnica`.
 - Arquitectura visual de Documentacion administrativa en `/documentacion-administrativa`.
+- Refactor de herramientas con `data/project-modules.ts` y componentes reutilizables.
+- Mejora visual tipo plataforma tecnica SaaS sin cambiar la logica funcional.
 - Fallback mock si faltan variables.
 - Chat IA flotante integrado.
 - Login basico opcional cuando Supabase esta configurado.

@@ -97,8 +97,8 @@ export function FloatingAssistant() {
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:right-5">
       {isOpen ? (
-        <section className="ml-auto flex max-h-[calc(100vh-2rem)] w-full max-w-[390px] flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-2xl">
-          <header className="flex items-start justify-between gap-3 border-b border-zinc-200 bg-zinc-950 p-4 text-white">
+        <section className="ml-auto flex max-h-[calc(100vh-2rem)] w-full max-w-[390px] flex-col overflow-hidden rounded-2xl border border-zinc-800/10 bg-white shadow-[0_28px_80px_rgba(15,23,42,0.24)]">
+          <header className="flex items-start justify-between gap-3 border-b border-white/10 bg-zinc-950 p-4 text-white">
             <div>
               <p className="text-sm font-semibold">Altiva Assistant - Proyecto de Título</p>
               <p className="mt-1 text-xs leading-5 text-zinc-300">Asistencia secundaria. Sin datos sensibles.</p>
@@ -113,7 +113,7 @@ export function FloatingAssistant() {
             </button>
           </header>
 
-          <div className="border-b border-zinc-200 bg-zinc-50 px-4 py-3">
+          <div className="border-b border-zinc-200 bg-zinc-50/90 px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-zinc-500">
               Preguntas sugeridas
             </p>
@@ -123,7 +123,7 @@ export function FloatingAssistant() {
                   key={question.prompt}
                   type="button"
                   onClick={() => void sendPrompt(question.prompt, question.mode)}
-                  className="shrink-0 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-700 hover:border-teal-700 hover:text-teal-800"
+                  className="shrink-0 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-700 shadow-sm hover:border-teal-700 hover:bg-teal-50 hover:text-teal-800"
                 >
                   {question.label}
                 </button>
@@ -139,9 +139,9 @@ export function FloatingAssistant() {
               >
                 <div
                   className={cn(
-                    "max-w-[86%] whitespace-pre-line rounded-lg px-3 py-2 text-sm leading-6",
+                    "max-w-[86%] whitespace-pre-line rounded-xl px-3 py-2 text-sm leading-6",
                     message.role === "user"
-                      ? "bg-teal-700 text-white"
+                      ? "bg-teal-700 text-white shadow-sm"
                       : "border border-zinc-200 bg-zinc-50 text-zinc-800"
                   )}
                 >
@@ -159,11 +159,11 @@ export function FloatingAssistant() {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Pregunta sobre pauta, rubrica o entregables..."
-              className="min-h-11 min-w-0 flex-1 rounded-md border border-zinc-300 px-3 text-sm outline-none focus:border-teal-700"
+              className="min-h-11 min-w-0 flex-1 rounded-lg border border-zinc-300 px-3 text-sm outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-700/20"
             />
             <button
               type="submit"
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-teal-700 text-white hover:bg-teal-800"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-teal-700 text-white shadow-lg shadow-teal-900/10 hover:bg-teal-800"
               aria-label="Enviar consulta"
             >
               <SendHorizontal className="h-4 w-4" aria-hidden />
@@ -174,7 +174,7 @@ export function FloatingAssistant() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-700 text-white shadow-2xl transition hover:bg-teal-800"
+          className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-zinc-950 text-cyan-100 shadow-[0_18px_50px_rgba(15,23,42,0.28)] ring-1 ring-white/20 transition hover:bg-teal-800"
           aria-label="Abrir Altiva Assistant"
         >
           <Bot className="h-6 w-6" aria-hidden />

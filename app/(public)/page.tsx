@@ -25,24 +25,36 @@ function ThesisProjectPage() {
   const supabaseConfigured = isSupabasePublicConfigured();
 
   return (
-    <main className="min-h-screen bg-zinc-100 pb-32">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-3">
-            <span className="w-fit rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-600">
-              Base inicial
-            </span>
+    <main className="altiva-page min-h-screen pb-32">
+      <header className="altiva-hero border-b border-white/10">
+        <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="flex max-w-4xl flex-col gap-5">
+            <div className="flex flex-wrap gap-2">
+              {["Proyecto de Titulo", "Oficina tecnica", "IA futura", "APUs V1 disponible"].map(
+                (badge) => (
+                  <span
+                    key={badge}
+                    className="w-fit rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-zinc-100"
+                  >
+                    {badge}
+                  </span>
+                )
+              )}
+            </div>
             <div>
-              <h1 className="text-4xl font-semibold tracking-tight text-zinc-950 md:text-5xl">
-                Proyecto de Titulo
+              <p className="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-200">
+                Altiva
+              </p>
+              <h1 className="mt-3 text-4xl font-semibold text-white md:text-6xl">
+                Sistema tecnico para Proyecto de Titulo
               </h1>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-600">
-                Sube archivos del proyecto, revisa metadata y usa apoyo IA sin activar modulos
-                avanzados todavia.
+              <p className="mt-4 max-w-3xl text-base leading-7 text-zinc-300 md:text-lg">
+                Organiza antecedentes, detecta faltantes y prepara entregables tecnicos con una
+                arquitectura lista para IA.
               </p>
             </div>
             {!supabaseConfigured ? (
-              <p className="text-sm text-amber-800">
+              <p className="w-fit rounded-lg border border-amber-300/25 bg-amber-300/10 px-3 py-2 text-sm font-medium text-amber-100">
                 Modo demo: configura Supabase para activar subida real de archivos.
               </p>
             ) : null}

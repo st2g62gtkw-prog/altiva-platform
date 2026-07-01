@@ -6,10 +6,14 @@ export const projectModules: ProjectModule[] = [
     title: "Generar APUs con Itemizado",
     href: "/apus",
     description: "Crea APUs base desde un itemizado y un formato Excel.",
-    status: "Disponible",
+    status: "available",
     isAvailable: true,
-    ctaLabel: "Abrir modulo",
-    requiredInputs: ["Itemizado .xlsx, .xls o .csv", "Formato APU .xlsx opcional"],
+    badge: "APUs V1 disponible",
+    primaryActionLabel: "Abrir modulo",
+    requirements: [
+      { title: "Itemizado .xlsx, .xls o .csv" },
+      { title: "Formato APU .xlsx opcional" }
+    ],
     relatedSources: ["Itemizado", "Formato APU", "Observaciones de partidas"],
     steps: [
       { title: "Subir itemizado" },
@@ -29,10 +33,16 @@ export const projectModules: ProjectModule[] = [
     title: "Cubicar",
     href: "/cubicar",
     description: "Sube planos y prepara cubicaciones automaticas. Proximamente con IA.",
-    status: "Proximamente",
+    status: "coming-soon",
     isAvailable: false,
-    ctaLabel: "Ver arquitectura",
-    requiredInputs: ["Planos", "Criterios de medicion", "Partidas del itemizado", "EETT"],
+    badge: "Proximamente",
+    primaryActionLabel: "Ver arquitectura",
+    requirements: [
+      { title: "Planos" },
+      { title: "Criterios de medicion" },
+      { title: "Partidas del itemizado" },
+      { title: "EETT" }
+    ],
     relatedSources: ["Planos PDF/DWG futuros", "Itemizado", "EETT", "Criterios de cubicacion"],
     steps: [
       { title: "Subir planos" },
@@ -56,10 +66,18 @@ export const projectModules: ProjectModule[] = [
     href: "/documentacion-tecnica",
     description:
       "Genera EETT, informes tecnicos, memorias y respaldos tecnicos. Proximamente con IA.",
-    status: "Preparado para IA",
+    status: "prepared-for-ai",
     isAvailable: false,
-    ctaLabel: "Ver arquitectura",
-    requiredInputs: ["Planos", "EETT", "Itemizados", "Normativa", "Rubricas", "Criterios del proyecto"],
+    badge: "Preparado para IA",
+    primaryActionLabel: "Ver arquitectura",
+    requirements: [
+      { title: "Planos" },
+      { title: "EETT" },
+      { title: "Itemizados" },
+      { title: "Normativa" },
+      { title: "Rubricas" },
+      { title: "Criterios del proyecto" }
+    ],
     relatedSources: ["Fuentes tecnicas", "Normativa", "Rubrica", "Formatos", "Antecedentes del proyecto"],
     steps: [
       { title: "Seleccionar fuentes del proyecto" },
@@ -86,10 +104,16 @@ export const projectModules: ProjectModule[] = [
     href: "/documentacion-administrativa",
     description:
       "Genera formularios, antecedentes administrativos y documentos para licitacion. Proximamente con IA.",
-    status: "Preparado para IA",
+    status: "prepared-for-ai",
     isAvailable: false,
-    ctaLabel: "Ver arquitectura",
-    requiredInputs: ["Bases", "Formularios", "Antecedentes administrativos", "Requisitos de entrega"],
+    badge: "Preparado para IA",
+    primaryActionLabel: "Ver arquitectura",
+    requirements: [
+      { title: "Bases" },
+      { title: "Formularios" },
+      { title: "Antecedentes administrativos" },
+      { title: "Requisitos de entrega" }
+    ],
     relatedSources: ["Bases administrativas", "Formularios", "Antecedentes del proyecto", "Checklists"],
     steps: [
       { title: "Seleccionar bases, formularios y antecedentes" },

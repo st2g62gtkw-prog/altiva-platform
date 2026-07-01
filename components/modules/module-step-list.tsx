@@ -8,8 +8,8 @@ export function ModuleStepList({ steps }: ModuleStepListProps) {
   return (
     <ol className="space-y-3">
       {steps.map((step, index) => (
-        <li key={step.title} className="flex gap-3">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-xs font-semibold text-white">
+        <li key={step.title} className="flex gap-3 rounded-lg border border-zinc-200/70 bg-white/70 p-3">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-xs font-semibold text-white shadow-sm">
             {index + 1}
           </span>
           <span>

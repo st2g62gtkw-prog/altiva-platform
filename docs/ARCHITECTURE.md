@@ -27,6 +27,7 @@ Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige logi
 - `components/apus/apu-file-upload.tsx`: input reutilizable para itemizado y formato APU.
 - `components/apus/apu-preview-table.tsx`: tabla de revision y exclusion de filas.
 - `components/modules/module-action-card.tsx`: tarjeta reutilizable para accesos a modulos desde `/`.
+- `components/modules/module-grid.tsx`: grilla reutilizable para renderizar herramientas desde data centralizada.
 - `components/modules/coming-soon-module.tsx`: plantilla reutilizable para modulos futuros.
 - `components/modules/module-step-list.tsx`: lista reutilizable de pasos del flujo.
 - `data/project-modules.ts`: catalogo central de modulos disponibles y futuros.
@@ -161,7 +162,9 @@ Cada modulo declara:
 - `description`
 - `status`
 - `isAvailable`
-- `requiredInputs`
+- `badge`
+- `primaryActionLabel`
+- `requirements`
 - `relatedSources`
 - `steps`
 - `futureOutputs`
@@ -169,6 +172,13 @@ Cada modulo declara:
 - `warning`
 
 Esto deja preparada la arquitectura para conectar IA mas adelante sin rehacer navegacion ni estructura visual.
+
+La capa visual usa clases globales ligeras en `app/globals.css`:
+
+- `altiva-page`: fondo tecnico con grilla sutil.
+- `altiva-hero`: hero oscuro para pantallas principales.
+- `altiva-surface`: superficie elevada para paneles principales.
+- `altiva-surface-soft`: superficie secundaria para paneles de apoyo.
 
 Estado actual:
 

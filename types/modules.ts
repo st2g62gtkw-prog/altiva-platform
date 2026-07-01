@@ -1,4 +1,4 @@
-export type ModuleStatus = "Disponible" | "Proximamente" | "Preparado para IA";
+export type ModuleStatus = "available" | "coming-soon" | "prepared-for-ai";
 
 export type ModuleId =
   | "apus"
@@ -11,7 +11,12 @@ export type ModuleStep = {
   description?: string;
 };
 
-export type FutureDocumentType = {
+export type FutureOutput = {
+  title: string;
+  description?: string;
+};
+
+export type ModuleRequirement = {
   title: string;
   description?: string;
 };
@@ -23,11 +28,12 @@ export type ProjectModule = {
   description: string;
   status: ModuleStatus;
   isAvailable: boolean;
-  ctaLabel: string;
-  requiredInputs: string[];
+  badge: string;
+  primaryActionLabel: string;
+  requirements: ModuleRequirement[];
   relatedSources: string[];
   steps: ModuleStep[];
-  futureOutputs: FutureDocumentType[];
+  futureOutputs: FutureOutput[];
   expectedOutputs: string[];
   warning?: string;
 };

@@ -20,9 +20,9 @@ export function ApuFileUpload({
   onFileSelected
 }: ApuFileUploadProps) {
   return (
-    <section className="rounded-lg border border-zinc-200 bg-white p-5">
+    <section className="altiva-surface-soft rounded-2xl p-5">
       <div className="flex gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-teal-50 text-teal-700">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-500/10 text-teal-700 ring-1 ring-teal-200">
           <FileSpreadsheet className="h-5 w-5" aria-hidden />
         </span>
         <div className="min-w-0">
@@ -43,7 +43,7 @@ export function ApuFileUpload({
               onFileSelected(selectedFile);
             }
           }}
-          className="block w-full rounded-md border border-zinc-300 bg-white text-sm text-zinc-700 file:mr-4 file:min-h-10 file:border-0 file:bg-zinc-100 file:px-4 file:text-sm file:font-semibold file:text-zinc-700 disabled:cursor-not-allowed disabled:bg-zinc-100"
+          className="block w-full rounded-lg border border-zinc-300 bg-white/90 text-sm text-zinc-700 shadow-sm file:mr-4 file:min-h-10 file:border-0 file:bg-zinc-100 file:px-4 file:text-sm file:font-semibold file:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20 disabled:cursor-not-allowed disabled:bg-zinc-100"
         />
       </label>
 

@@ -30,24 +30,33 @@ export function ThesisReadinessPanel({ files }: ThesisReadinessPanelProps) {
   const readiness = analyzeThesisReadiness(files);
 
   return (
-    <section className="rounded-lg border border-zinc-200 bg-white p-5">
+    <section className="altiva-surface rounded-2xl p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-teal-700">
+            Revision inteligente
+          </p>
           <h2 className="text-base font-semibold text-zinc-950">Diagnostico de archivos</h2>
           <p className="mt-2 text-sm leading-6 text-zinc-600">
             Revision V1 basada en metadata y categorias.
           </p>
         </div>
-        <span className="rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-700">
+        <span className="rounded-full border border-teal-200 bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-800">
           {readiness.score}%
         </span>
       </div>
 
-      <div className="mt-5 rounded-md border border-zinc-200 bg-zinc-50 p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-zinc-500">
+      <div className="mt-5 rounded-xl border border-zinc-200 bg-zinc-950 p-4 text-white shadow-[0_14px_35px_rgba(15,23,42,0.16)]">
+        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-zinc-300">
           Estado general
         </p>
-        <p className="mt-1 text-lg font-semibold text-zinc-950">{readiness.status}</p>
+        <p className="mt-1 text-lg font-semibold text-white">{readiness.status}</p>
+        <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
+          <div
+            className="h-full rounded-full bg-teal-400"
+            style={{ width: `${Math.max(0, Math.min(readiness.score, 100))}%` }}
+          />
+        </div>
       </div>
 
       <div className="mt-5 space-y-5">
@@ -70,7 +79,7 @@ export function ThesisReadinessPanel({ files }: ThesisReadinessPanelProps) {
         </div>
       </div>
 
-      <div className="mt-5 rounded-md border border-amber-200 bg-amber-50 p-4">
+      <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 shadow-[0_12px_35px_rgba(180,83,9,0.10)]">
         <div className="flex gap-3">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-800" aria-hidden />
           <div>

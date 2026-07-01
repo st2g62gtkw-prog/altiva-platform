@@ -46,9 +46,12 @@ export function ThesisFileList({
   onDelete
 }: ThesisFileListProps) {
   return (
-    <section className="rounded-lg border border-zinc-200 bg-white p-5">
+    <section className="altiva-surface rounded-2xl p-5 sm:p-6">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-teal-700">
+            Evidencia cargada
+          </p>
           <h2 className="text-xl font-semibold text-zinc-950">Archivos subidos</h2>
           <p className="mt-2 text-sm leading-6 text-zinc-600">
             {demoMode
@@ -56,7 +59,7 @@ export function ThesisFileList({
               : "Archivos registrados en thesis_files para el usuario autenticado."}
           </p>
         </div>
-        <span className="w-fit rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600">
+        <span className="w-fit rounded-full border border-cyan-200 bg-cyan-50 px-2.5 py-1 text-xs font-semibold text-cyan-800">
           {files.length} archivos
         </span>
       </div>
@@ -70,7 +73,7 @@ export function ThesisFileList({
       {isLoading ? <p className="mt-5 text-sm text-zinc-500">Cargando archivos...</p> : null}
 
       {!isLoading && files.length === 0 ? (
-        <p className="mt-5 rounded-md border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-600">
+        <p className="mt-5 rounded-xl border border-dashed border-zinc-300 bg-white/70 p-4 text-sm text-zinc-600">
           Aun no hay archivos registrados.
         </p>
       ) : null}
@@ -81,7 +84,10 @@ export function ThesisFileList({
           const isDeleting = deletingFileKey === fileKey;
 
           return (
-            <article key={fileKey} className="rounded-md border border-zinc-200 p-4">
+            <article
+              key={fileKey}
+              className="rounded-xl border border-zinc-200/80 bg-white/80 p-4 shadow-[0_10px_25px_rgba(15,23,42,0.04)] transition hover:border-teal-200 hover:bg-white"
+            >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">
                   <h3 className="break-words font-semibold text-zinc-950">{file.name}</h3>
@@ -90,14 +96,14 @@ export function ThesisFileList({
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="w-fit rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                  <span className="w-fit rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-700">
                     {file.status}
                   </span>
                   {demoMode ? (
                     <button
                       type="button"
                       disabled
-                      className="inline-flex min-h-8 items-center rounded-md border border-zinc-200 bg-zinc-50 px-2.5 text-xs font-semibold text-zinc-500 disabled:cursor-not-allowed"
+                      className="inline-flex min-h-8 items-center rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 text-xs font-semibold text-zinc-500 disabled:cursor-not-allowed"
                     >
                       Disponible con almacenamiento real
                     </button>
@@ -108,7 +114,7 @@ export function ThesisFileList({
                       onClick={() => {
                         void onDelete?.(file);
                       }}
-                      className="inline-flex min-h-8 items-center gap-1.5 rounded-md border border-red-200 px-2.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:border-zinc-200 disabled:bg-zinc-50 disabled:text-zinc-400"
+                      className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-red-200 bg-white px-2.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:border-zinc-200 disabled:bg-zinc-50 disabled:text-zinc-400"
                     >
                       <Trash2 className="h-3.5 w-3.5" aria-hidden />
                       {isDeleting ? "Eliminando..." : "Eliminar"}

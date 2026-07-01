@@ -52,6 +52,7 @@ La pagina `/` contiene:
 - Seccion "Entregables y herramientas" con APUs disponible y tres modulos futuros.
 - Chat IA flotante integrado en la misma pagina.
 - Login basico opcional cuando existen variables de Supabase.
+- Estilo visual tipo herramienta tecnica: hero oscuro, superficies elevadas, tarjetas modulares y panel de diagnostico con barra de avance.
 
 Si Supabase esta configurado y el usuario inicio sesion, la subida guarda el archivo en Storage y metadata en `thesis_files`. Si Supabase no esta configurado, se muestra una lista demo y la subida queda deshabilitada.
 
@@ -118,6 +119,8 @@ Altiva deja preparadas tres rutas como arquitectura visual y tecnica para IA fut
 - `/documentacion-administrativa`: flujo futuro para seleccionar bases/formularios, detectar campos requeridos, identificar faltantes, generar borradores administrativos y revisar/exportar.
 
 Estos modulos estan marcados como `Proximamente` o `Preparado para IA`. No leen planos, no ejecutan OCR, no extraen datos, no usan Supabase, no generan documentos finales y no exportan Word/Excel/PDF todavia. APUs sigue siendo el unico modulo funcional de generacion actual.
+
+La navegacion de herramientas se renderiza desde `data/project-modules.ts` usando componentes reutilizables en `components/modules`. Cada modulo declara estado, badge, requisitos, fuentes relacionadas, pasos, salidas futuras y accion principal para que luego se pueda conectar IA sin rehacer la UI.
 
 ## Chat IA
 
@@ -229,13 +232,14 @@ Antes de usar archivos o datos reales falta:
 - Checklist contra rubrica.
 - Completar APUs con recursos, rendimientos, precios y validacion tecnica.
 - Activar Cubicar, Documentacion tecnica y Documentacion administrativa con IA documental, extraccion de datos y validacion de fuentes.
+- Mantener el sistema visual tecnico con componentes reutilizables antes de sumar nuevas pantallas.
 
 ## Subir a GitHub/Vercel
 
 ```bash
 git status
 git add .
-git commit -m "Add future project modules"
+git commit -m "Refine module architecture and visual system"
 git push
 ```
 

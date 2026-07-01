@@ -97,8 +97,11 @@ export function ThesisFileUpload({ enabled, onUploaded }: ThesisFileUploadProps)
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg border border-zinc-200 bg-white p-5">
+    <form onSubmit={handleSubmit} className="altiva-surface rounded-2xl p-5 sm:p-6">
       <div className="flex flex-col gap-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-teal-700">
+          Repositorio del proyecto
+        </p>
         <h2 className="text-xl font-semibold text-zinc-950">Subir archivo</h2>
         <p className="text-sm leading-6 text-zinc-600">
           Guarda archivos del Proyecto de Titulo en Supabase Storage cuando el login esta activo.
@@ -112,7 +115,7 @@ export function ThesisFileUpload({ enabled, onUploaded }: ThesisFileUploadProps)
             type="file"
             disabled={!enabled || isUploading}
             onChange={(event) => setFile(event.target.files?.[0] || null)}
-            className="mt-2 block w-full rounded-md border border-zinc-300 bg-white text-sm text-zinc-700 file:mr-4 file:min-h-10 file:border-0 file:bg-zinc-100 file:px-4 file:text-sm file:font-semibold file:text-zinc-700 disabled:cursor-not-allowed disabled:bg-zinc-100"
+            className="mt-2 block w-full rounded-lg border border-zinc-300 bg-white/90 text-sm text-zinc-700 shadow-sm file:mr-4 file:min-h-10 file:border-0 file:bg-zinc-100 file:px-4 file:text-sm file:font-semibold file:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20 disabled:cursor-not-allowed disabled:bg-zinc-100"
           />
         </label>
 
@@ -122,7 +125,7 @@ export function ThesisFileUpload({ enabled, onUploaded }: ThesisFileUploadProps)
             value={category}
             disabled={!enabled || isUploading}
             onChange={(event) => setCategory(event.target.value)}
-            className="mt-2 min-h-11 w-full rounded-md border border-zinc-300 bg-white px-3 text-sm text-zinc-700 outline-none focus:border-teal-700 disabled:cursor-not-allowed disabled:bg-zinc-100"
+            className="mt-2 min-h-11 w-full rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-700 outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-700/20 disabled:cursor-not-allowed disabled:bg-zinc-100"
           >
             {thesisFileCategories.map((item) => (
               <option key={item} value={item}>
@@ -139,7 +142,7 @@ export function ThesisFileUpload({ enabled, onUploaded }: ThesisFileUploadProps)
             disabled={!enabled || isUploading}
             onChange={(event) => setNotes(event.target.value)}
             rows={3}
-            className="mt-2 w-full rounded-md border border-zinc-300 px-3 py-2 text-sm text-zinc-700 outline-none focus:border-teal-700 disabled:cursor-not-allowed disabled:bg-zinc-100"
+            className="mt-2 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-700 outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-700/20 disabled:cursor-not-allowed disabled:bg-zinc-100"
             placeholder="Ejemplo: pauta oficial, version, uso esperado..."
           />
         </label>
@@ -149,19 +152,23 @@ export function ThesisFileUpload({ enabled, onUploaded }: ThesisFileUploadProps)
         <button
           type="submit"
           disabled={!enabled || isUploading}
-          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-teal-700 px-4 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:text-zinc-600 sm:w-auto"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 text-sm font-semibold text-white shadow-lg shadow-teal-900/10 hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-zinc-300 disabled:text-zinc-600 disabled:shadow-none sm:w-auto"
         >
           <Upload className="h-4 w-4" aria-hidden />
           {isUploading ? "Subiendo..." : "Subir archivo"}
         </button>
         {!enabled ? (
-          <p className="text-sm leading-6 text-zinc-600">
+          <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-900">
             Subida real pendiente: configura Supabase para activar almacenamiento.
           </p>
         ) : null}
       </div>
 
-      {message ? <p className="mt-4 text-sm leading-6 text-zinc-600">{message}</p> : null}
+      {message ? (
+        <p className="mt-4 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm leading-6 text-zinc-700">
+          {message}
+        </p>
+      ) : null}
     </form>
   );
 }
