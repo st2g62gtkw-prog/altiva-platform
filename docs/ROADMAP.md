@@ -6,6 +6,7 @@
 - Limpieza visual de la pagina unica.
 - Subida de archivos a Supabase Storage si Supabase esta configurado.
 - Lista de archivos desde `thesis_files` si hay sesion.
+- Diagnostico V1 basado en metadata y categorias.
 - Fallback mock si faltan variables.
 - Chat IA flotante integrado.
 - Login basico opcional cuando Supabase esta configurado.
@@ -24,6 +25,7 @@
 
 ## Fase 3: IA con documentos autorizados
 
+- Extraccion de texto desde documentos autorizados.
 - IA leyendo fuentes/documentos autorizados.
 - Generacion guiada de informes.
 - Checklist contra rubrica.

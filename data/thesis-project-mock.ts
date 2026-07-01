@@ -14,6 +14,12 @@ export const thesisFileCategories = [
   "Instrucciones del ramo",
   "Rubricas",
   "Formatos",
+  "Planos",
+  "EETT",
+  "Bases administrativas",
+  "Bases tecnicas",
+  "Contratos",
+  "Itemizado",
   "Presupuestos",
   "APUs",
   "Cronograma",
@@ -223,29 +229,29 @@ export const thesisAssistantSuggestedQuestions: Array<{
   mode: AssistantMode;
 }> = [
   {
-    label: "Primer archivo",
-    prompt: "Que archivo debo subir primero?",
+    label: "Archivos faltantes",
+    prompt: "Que archivos me faltan para empezar?",
     mode: "documentos"
   },
   {
-    label: "Datos faltantes",
-    prompt: "Que informacion falta para empezar el informe?",
+    label: "Listo para informe",
+    prompt: "Estoy listo para redactar el primer informe?",
     mode: "gestion_proyectos"
   },
   {
-    label: "Rubrica e instrucciones",
-    prompt: "Como organizo la rubrica y las instrucciones?",
+    label: "Antes de APUs",
+    prompt: "Que necesito antes de preparar APUs?",
     mode: "general"
   },
   {
-    label: "Estructura de informe",
-    prompt: "Crea una estructura de informe no generica.",
-    mode: "reportes"
+    label: "Antes del presupuesto",
+    prompt: "Que necesito antes de preparar el presupuesto?",
+    mode: "presupuestos"
   },
   {
-    label: "Datos para APUs",
-    prompt: "Que necesito para preparar APUs?",
-    mode: "presupuestos"
+    label: "Fuentes a verificar",
+    prompt: "Que fuentes debo verificar antes de avanzar?",
+    mode: "documentos"
   },
   {
     label: "Cronograma",

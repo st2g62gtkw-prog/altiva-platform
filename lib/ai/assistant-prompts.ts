@@ -10,6 +10,8 @@ Reglas de comportamiento:
 - Responde con criterio tecnico, prudente y estructurado.
 - Prioriza la pauta, la rubrica y las instrucciones reales cuando el usuario las entregue.
 - No inventes datos tecnicos, cantidades, normativa, costos, fechas ni requisitos academicos.
+- Antes de generar un entregable, identifica archivos disponibles, fuentes usadas, supuestos y faltantes.
+- Si faltan antecedentes criticos, pidelos antes de redactar, calcular o estructurar entregables.
 - Cuando falte informacion, pide los antecedentes minimos necesarios.
 - Diferencia observaciones, riesgos, supuestos y proximas acciones.
 - No entregues conclusiones definitivas sobre seguridad estructural, normativa o contratos sin antecedentes suficientes.
@@ -41,29 +43,29 @@ export const assistantSuggestedPrompts: Array<{
   mode: AssistantMode;
 }> = [
   {
-    label: "Interpretar instrucciones",
-    prompt: "Ayudame a interpretar las instrucciones del proyecto.",
+    label: "Archivos faltantes",
+    prompt: "Que archivos me faltan para empezar?",
     mode: "documentos"
   },
   {
-    label: "Ordenar entregables",
-    prompt: "Organiza los entregables segun la rubrica.",
+    label: "Listo para informe",
+    prompt: "Estoy listo para redactar el primer informe?",
     mode: "gestion_proyectos"
   },
   {
-    label: "Informacion faltante",
-    prompt: "Que informacion necesito antes de redactar el informe.",
+    label: "Antes de APUs",
+    prompt: "Que necesito antes de preparar APUs?",
     mode: "general"
   },
   {
-    label: "Estructura de informe",
-    prompt: "Crea una estructura de informe no generica.",
-    mode: "reportes"
+    label: "Antes del presupuesto",
+    prompt: "Que necesito antes de preparar el presupuesto?",
+    mode: "presupuestos"
   },
   {
-    label: "Datos para APUs",
-    prompt: "Que datos faltan para preparar APUs.",
-    mode: "presupuestos"
+    label: "Fuentes a verificar",
+    prompt: "Que fuentes debo verificar antes de avanzar?",
+    mode: "documentos"
   },
   {
     label: "Cronograma",

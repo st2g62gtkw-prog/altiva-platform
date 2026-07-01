@@ -48,3 +48,19 @@ export type ThesisFileUploadDraft = {
   notes?: string;
   sizeBytes?: number;
 };
+
+export type ThesisReadinessStatus =
+  | "Inicial"
+  | "Parcial"
+  | "Preparado para analisis"
+  | "Faltan antecedentes criticos";
+
+export type ThesisReadinessResult = {
+  status: ThesisReadinessStatus;
+  score: number;
+  foundCategories: string[];
+  missingCategories: string[];
+  criticalMissing: string[];
+  nextStep: string;
+  warnings: string[];
+};

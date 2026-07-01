@@ -4,7 +4,7 @@
 
 Altiva se enfoca por ahora en una sola pagina: Proyecto de Titulo.
 
-La experiencia visible ya no es un portafolio, no muestra workspaces multiples y no presenta modulos de clientes. La ruta `/` concentra subida/listado de archivos del Proyecto de Titulo, proximo paso, estado, seguridad y chat IA flotante.
+La experiencia visible ya no es un portafolio, no muestra workspaces multiples y no presenta modulos de clientes. La ruta `/` concentra subida/listado de archivos del Proyecto de Titulo, diagnostico de faltantes, proximo paso, estado y chat IA flotante.
 
 Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige login antes de mostrar la pagina. Si faltan variables de Supabase, el gate deja pasar a modo demo para no romper Vercel ni desarrollo local.
 
@@ -17,6 +17,9 @@ Si Supabase esta configurado, `components/auth/project-auth-gate.tsx` exige logi
 - `components/thesis/thesis-file-upload.tsx`: subida real a Supabase Storage cuando hay sesion.
 - `components/thesis/thesis-file-list.tsx`: lista archivos reales desde `thesis_files` o mock si no hay Supabase.
 - `components/thesis/thesis-files-panel.tsx`: une subida y listado.
+- `components/thesis/thesis-readiness-panel.tsx`: diagnostico visual de archivos y faltantes.
+- `components/thesis/thesis-project-workspace.tsx`: layout principal de dos columnas.
+- `lib/thesis/readiness.ts`: calculo reutilizable del diagnostico.
 - `next.config.ts`: redirige rutas antiguas a `/`.
 - `app/sitemap.ts`: expone solo `/`.
 - `app/robots.ts`: bloquea rutas antiguas y privadas.
@@ -79,6 +82,32 @@ Flujo de subida:
 5. La metadata se guarda en `thesis_files`.
 6. La lista se actualiza con los archivos del usuario autenticado.
 
+## Diagnostico V1
+
+El diagnostico recibe una lista de `ThesisFileMetadata` y devuelve:
+
+- `status`
+- `score`
+- `foundCategories`
+- `missingCategories`
+- `criticalMissing`
+- `nextStep`
+- `warnings`
+
+La logica compara categorias presentes contra un conjunto base: instrucciones, rubricas, formatos, planos, EETT, bases, contratos, itemizado, presupuesto, APUs, cronograma, informes, normativa y fuentes tecnicas.
+
+Los faltantes criticos actuales son:
+
+- Instrucciones del ramo.
+- Rubricas.
+- Formatos.
+- EETT.
+- Itemizado.
+- Planos.
+- Bases tecnicas.
+
+Este diagnostico no analiza contenido documental. Solo usa metadata y categorias registradas.
+
 ## Chat IA flotante
 
 El chat integrado vive en `components/chat/floating-assistant.tsx`.
@@ -98,6 +127,7 @@ El asistente se enfoca en:
 - Ordenar fuentes.
 - Preparar entregables.
 - Detectar informacion faltante.
+- Revisar archivos disponibles y faltantes antes de proponer entregables.
 - Estructurar informes contra pauta o rubrica.
 - Preparar APUs, presupuesto, cronograma y reportes mas adelante.
 

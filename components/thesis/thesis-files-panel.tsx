@@ -10,6 +10,10 @@ import type { ThesisFileMetadata } from "@/types/thesis";
 import { ThesisFileList } from "@/components/thesis/thesis-file-list";
 import { ThesisFileUpload } from "@/components/thesis/thesis-file-upload";
 
+type ThesisFilesPanelProps = {
+  onFilesChange?: (files: ThesisFileMetadata[]) => void;
+};
+
 function getMockFiles(): ThesisFileMetadata[] {
   return thesisProjectFiles.slice(0, 3).map((file) => ({
     id: file.id,
@@ -25,13 +29,17 @@ function getMockFiles(): ThesisFileMetadata[] {
   }));
 }
 
-export function ThesisFilesPanel() {
+export function ThesisFilesPanel({ onFilesChange }: ThesisFilesPanelProps) {
   const supabaseEnabled = isSupabasePublicConfigured();
   const [files, setFiles] = useState<ThesisFileMetadata[]>(() =>
     supabaseEnabled ? [] : getMockFiles()
   );
   const [isLoading, setIsLoading] = useState(supabaseEnabled);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    onFilesChange?.(files);
+  }, [files, onFilesChange]);
 
   useEffect(() => {
     if (!supabaseEnabled) {

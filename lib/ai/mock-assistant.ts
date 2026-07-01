@@ -32,6 +32,10 @@ function buildMockAnswer(request: AssistantRequest) {
     return `${intro}Para interpretar instrucciones del Proyecto de Titulo, primero separa requisitos obligatorios, formato de entrega, criterios de evaluacion, restricciones, fechas y evidencias exigidas. Si aun no tienes la pauta real, no conviene redactar conclusiones; conviene crear una matriz de requisitos y preguntas pendientes.`;
   }
 
+  if (prompt.includes("faltan") || prompt.includes("listo") || prompt.includes("empezar")) {
+    return `${intro}Antes de generar entregables, revisa si ya tienes instrucciones del ramo, rubrica, formato base, EETT, itemizado, planos o bases tecnicas segun aplique. Si falta alguno de esos antecedentes criticos, Altiva debe pedirlo antes de redactar o calcular. Este diagnostico todavia se basa en metadata y categorias, no en lectura del contenido de archivos.`;
+  }
+
   if (prompt.includes("apu") || prompt.includes("presupuesto") || mode === "presupuestos") {
     return `${intro}Para preparar APUs y presupuesto necesitas partidas definidas, unidad de medida, cubicaciones, rendimientos, mano de obra, materiales, equipos, costos indirectos, fuente de precios y supuestos. Sin esos datos, solo se puede armar una estructura de trabajo, no calcular valores confiables.`;
   }

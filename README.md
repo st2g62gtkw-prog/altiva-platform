@@ -42,12 +42,28 @@ La pagina `/` contiene:
 - Subida de archivo.
 - Lista de archivos subidos.
 - Proximo paso.
+- Diagnostico de archivos y faltantes.
 - Estado del proyecto.
 - Recordatorio de seguridad.
 - Chat IA flotante integrado en la misma pagina.
 - Login basico opcional cuando existen variables de Supabase.
 
 Si Supabase esta configurado y el usuario inicio sesion, la subida guarda el archivo en Storage y metadata en `thesis_files`. Si Supabase no esta configurado, se muestra una lista demo y la subida queda deshabilitada.
+
+## Diagnostico V1
+
+El diagnostico de archivos y faltantes vive en `components/thesis/thesis-readiness-panel.tsx` y usa la logica de `lib/thesis/readiness.ts`.
+
+Estado actual:
+
+- Analiza metadata y categorias de archivos.
+- Calcula un nivel simple de preparacion.
+- Muestra categorias encontradas.
+- Muestra documentos faltantes.
+- Destaca faltantes criticos.
+- Recomienda un proximo paso.
+
+Todavia no lee contenido de PDFs, Word, Excel, planos ni documentos tecnicos. La siguiente etapa sera IA documental real con extraccion de texto, fuentes verificadas y controles de permisos.
 
 ## Chat IA
 
@@ -155,6 +171,7 @@ Antes de usar archivos o datos reales falta:
 - Persistencia de fuentes y entregables.
 - Edicion o eliminacion de metadata.
 - IA leyendo documentos autorizados.
+- Extraccion de texto y validacion de fuentes.
 - Checklist contra rubrica.
 
 ## Subir a GitHub/Vercel
@@ -162,7 +179,7 @@ Antes de usar archivos o datos reales falta:
 ```bash
 git status
 git add .
-git commit -m "Add thesis file upload with Supabase"
+git commit -m "Add thesis readiness diagnosis"
 git push
 ```
 
