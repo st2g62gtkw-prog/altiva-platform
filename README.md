@@ -2,7 +2,7 @@
 
 Altiva queda enfocada por ahora en una sola experiencia: una pagina unica para el Proyecto de Titulo.
 
-La ruta principal es `/` y muestra una base simple para subir archivos del Proyecto de Titulo, ver archivos registrados, revisar el proximo paso y usar un chat IA flotante.
+La ruta principal es `/` y muestra una base simple para subir archivos del Proyecto de Titulo, ver archivos registrados, revisar el proximo paso, abrir el generador de APUs V1 y usar un chat IA flotante.
 
 Si Supabase esta configurado, `/` pide login antes de mostrar el area del proyecto. Si Supabase no esta configurado, la pagina sigue funcionando en modo demo con datos mock.
 
@@ -22,6 +22,7 @@ No hay portafolio publico activo, servicios, contacto, workspaces personales, wo
 Ruta activa:
 
 - `/`: pagina unica Proyecto de Titulo.
+- `/apus`: generador local de APUs base desde itemizado y formato Excel.
 
 Rutas antiguas redirigidas a `/`:
 
@@ -45,6 +46,7 @@ La pagina `/` contiene:
 - Diagnostico de archivos y faltantes.
 - Estado del proyecto.
 - Recordatorio de seguridad.
+- Acceso al modulo "Generar APUs con Itemizado".
 - Chat IA flotante integrado en la misma pagina.
 - Login basico opcional cuando existen variables de Supabase.
 
@@ -64,6 +66,45 @@ Estado actual:
 - Recomienda un proximo paso.
 
 Todavia no lee contenido de PDFs, Word, Excel, planos ni documentos tecnicos. La siguiente etapa sera IA documental real con extraccion de texto, fuentes verificadas y controles de permisos.
+
+## APUs V1
+
+El modulo `/apus` genera un Excel descargable llamado `APUs_generados.xlsx`.
+
+Flujo:
+
+- El usuario sube un itemizado `.xlsx`, `.xls` o `.csv`.
+- El usuario sube un formato APU `.xlsx` con placeholders, si lo tiene.
+- Altiva detecta columnas comunes y permite ajustar el mapeo manualmente.
+- El usuario revisa la vista previa y excluye filas que sean titulos o subtitulos.
+- Altiva crea una hoja `Resumen` y una hoja por cada APU: `APU 001`, `APU 002`, etc.
+
+Columnas detectadas:
+
+- Empresa: `Empresa`, `Constructora`, `Mandante`.
+- Proyecto: `Proyecto`.
+- Codigo/item: `Codigo`, `Item`, `N`, `Nro`, `Numero`.
+- Actividad: `Actividad`, `Descripcion`, `Partida`, `Nombre partida`, `Tarea`, `Glosa`.
+- Unidad: `Unidad`, `Und`, `U.M.`, `UM`, `Un`.
+- Cantidad: `Cantidad`, `Cant.`, `Cubicacion`, `Metrado`.
+- Observaciones: `Observacion`, `Observaciones`, `Nota`, `Notas`.
+
+Placeholders soportados en el formato APU:
+
+```txt
+{{EMPRESA}}
+{{PROYECTO}}
+{{CODIGO}}
+{{ITEM}}
+{{ACTIVIDAD}}
+{{UNIDAD}}
+{{CANTIDAD}}
+{{OBSERVACIONES}}
+{{FECHA}}
+{{NUMERO_APU}}
+```
+
+APUs V1 es deterministico y funciona en el navegador. No usa IA, no sube archivos a Supabase, no completa recursos, no inventa rendimientos, no inventa precios y no calcula totales. El resultado es una base ordenada para revision profesional posterior.
 
 ## Chat IA
 
@@ -173,6 +214,7 @@ Antes de usar archivos o datos reales falta:
 - IA leyendo documentos autorizados.
 - Extraccion de texto y validacion de fuentes.
 - Checklist contra rubrica.
+- Completar APUs con recursos, rendimientos, precios y validacion tecnica.
 
 ## Subir a GitHub/Vercel
 

@@ -7,6 +7,7 @@
 - Subida de archivos a Supabase Storage si Supabase esta configurado.
 - Lista de archivos desde `thesis_files` si hay sesion.
 - Diagnostico V1 basado en metadata y categorias.
+- Modulo APUs V1 deterministico en `/apus`.
 - Fallback mock si faltan variables.
 - Chat IA flotante integrado.
 - Login basico opcional cuando Supabase esta configurado.
@@ -34,7 +35,8 @@
 
 ## Fase 4: Desarrollo tecnico del proyecto
 
-- APUs.
+- APUs V1 base desde itemizado y formato Excel.
+- Completar APUs con recursos, rendimientos, precios y validacion tecnica.
 - Presupuesto.
 - Cronograma MS Project.
 - Reportes tecnicos.

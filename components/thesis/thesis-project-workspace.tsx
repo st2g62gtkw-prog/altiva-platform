@@ -1,6 +1,7 @@
 "use client";
 
-import { Bot } from "lucide-react";
+import { Bot, FileSpreadsheet } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
 
@@ -40,6 +41,27 @@ export function ThesisProjectWorkspace() {
   return (
     <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-8">
       <section className="min-w-0">
+        <section className="mb-5 rounded-lg border border-zinc-200 bg-white p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-teal-50 text-teal-700">
+                <FileSpreadsheet className="h-5 w-5" aria-hidden />
+              </span>
+              <div>
+                <h2 className="text-lg font-semibold text-zinc-950">Generar APUs con Itemizado</h2>
+                <p className="mt-1 text-sm leading-6 text-zinc-600">
+                  Crea APUs base desde un itemizado y un formato Excel.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/apus"
+              className="inline-flex min-h-10 w-full items-center justify-center rounded-md bg-teal-700 px-4 text-sm font-semibold text-white hover:bg-teal-800 sm:w-auto"
+            >
+              Abrir modulo
+            </Link>
+          </div>
+        </section>
         <ThesisFilesPanel onFilesChange={handleFilesChange} />
       </section>
 
